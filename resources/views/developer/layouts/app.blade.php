@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/fontawesome-free/css/all.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/dist/css/adminlte.min.css')}}">
+  @yield('style')
 </head>
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -15,7 +16,7 @@
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__wobble" src="{{asset('layouts/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
   </div>
-
+  @include('sweetalert::alert')
 @include('developer.layouts.header')
 @include('developer.layouts.sidebar')
 <div class="content-wrapper">
@@ -60,5 +61,6 @@
 <script src="{{asset('layouts/plugins/chart.js/Chart.min.js')}}"></script>
 <script src="{{asset('layouts/dist/js/demo.js') }}"></script>
 <script src="{{asset('layouts/dist/js/pages/dashboard2.js') }}"></script>
+@yield('script')
 </body>
 </html>

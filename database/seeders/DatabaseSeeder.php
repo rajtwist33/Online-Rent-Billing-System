@@ -24,6 +24,12 @@ class DatabaseSeeder extends Seeder
             'slug'=>Str::random(30),
             ]
           );
+        Role::create(
+            [
+            'name' => 'renter',
+            'slug'=>Str::random(30),
+            ]
+          );
 
         User::create([
                 'name'=>'Developer',
@@ -33,6 +39,7 @@ class DatabaseSeeder extends Seeder
                 'password'=>Hash::make('password'),
                 'role_id'=>1,
                 
-        ])  ;
+        ]);
+    
     }
 }

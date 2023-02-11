@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
             }
            
         }
-        toast('Success Toast','error');
+        toast('Something Went Error','error');
         return back();
     }
     public function logout(Request $request)
