@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\RentownerDetail;
 
 class User extends Authenticatable
 {
@@ -25,6 +26,12 @@ class User extends Authenticatable
         'role_id',
     ];
 
+    Public function renterdetail(){
+        return $this->belongsTo(RentownerDetail::class,'id','user_id');
+    }
+    Public function renterimage(){
+        return $this->belongsTo(RenterImage::class,'id','user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

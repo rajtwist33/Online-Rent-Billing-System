@@ -7,56 +7,53 @@
 @endsection
 @section('main-body')
       @include('developer.layouts.error')
+      @include('developer.layouts.success')
       <div class="card card-primary">
         <div class="card-header">
         <h3 class="card-title">Update Renter</h3>
         </div>
-        <form>
+        <form action="{{route('developer.updaterenter')}}" method="post"enctype="multipart/form-data">
+            @csrf
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">name</label>
-                        <input type="text" name="renter_name" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" name="renter_name" class="form-control" value="{{$datas[0]->name}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" name="renter_email" id="exampleInputEmail1" placeholder="Enter email">
+                        <input type="email" class="form-control" name="renter_email" value="{{$datas[0]->email}}" id="exampleInputEmail1" placeholder="Enter email">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Phone</label>
-                        <input type="text" class="form-control" name="renter_phone" id="exampleInputEmail1" placeholder="Enter email">
+                        <input type="text" class="form-control" name="renter_phone" value="{{$datas[0]->renterdetail != null ? $datas[0]->renterdetail->phone : old('renter_phone') }}" id="exampleInputEmail1" placeholder="Enter Phone">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Address</label>
-                        <input type="text" class="form-control" name="renter_address" id="exampleInputEmail1" placeholder="Enter email">
+                        <input type="text" class="form-control" name="renter_address" value="{{$datas[0]->renterdetail != null ? $datas[0]->renterdetail->address : old('renter_address') }}" id="exampleInputEmail1" placeholder="Enter Address">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputPassword1">User Id</label>
-                        <input type="text" class="form-control" name="renter_account" id="exampleInputPassword1" placeholder="Password">
+                        <input type="text" class="form-control" name="renter_useraccount" value="{{$datas[0]->account}}" id="exampleInputPassword1" placeholder="Enter User Id">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" name="data_id" value="{{$datas[0]->id}}" id="exampleInputPassword1" placeholder="Enter User Id">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputFile">File input</label>
-                        <div class="input-group">
-                        <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                        </div>
-                        <div class="input-group-append">
-                             <span class="input-group-text">Upload</span>
-                        </div>
-                        </div>
-                    </div>
+                <div class="col-md-6">     
+                <label for="formFile" class="form-label">Upload Image</label>
+                    <input class="form-control" name="image" type="file" id="formFile">  
+                    
+                </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-check">
@@ -97,6 +94,14 @@
       "responsive": true, "lengthChange": false, "autoWidth": false,
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
-
+  setTimeout(function() {
+    $('#errorhide').hide(); 
+},8000);
+  setTimeout(function() {
+    $('#success').hide(); 
+},4000);
+  setTimeout(function() {
+    $('#delete').hide(); 
+},4000);
 </script>
 @endsection

@@ -20,7 +20,7 @@ class AuthenticationController extends Controller
             if (auth()->user()->role_id == 1) 
             {   
                 $request->session()->regenerate();
-                return redirect()->route('developer.dashboard');
+                return redirect()->route('developer.dashboard.index');
             }
             else if(auth()->user()->role_id == 2)
             {

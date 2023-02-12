@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
-{    
+class RenterImage extends Model
+{
     use HasFactory;
     protected $fillable = [
         'name',
         'user_id',
-        'tenant_id',
         'image_path',
         'slug',
     ];

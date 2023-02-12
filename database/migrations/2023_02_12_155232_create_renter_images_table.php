@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('renter_images', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('tenant_id')->unsigned()->index();
-            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
             $table->string('image_path')->nullable();
             $table->string('slug');
             $table->timestamps();
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('renter_images');
     }
 };

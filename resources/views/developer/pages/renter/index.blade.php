@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 @endsection
 @section('main-body')
+@include('developer.layouts.success')
+@include('developer.layouts.delete')
 <div class="card">
       @include('developer.layouts.error')
     <div class="card-body">
@@ -16,6 +18,7 @@
             <thead>
                 <tr>
                 <th>#</th>
+                <th>Profile</th>
                 <th>Name</th>
                 <th>User Id</th>
                 <th>Created Date</th>
@@ -26,19 +29,24 @@
                 @foreach ($datas as $data )
                     <tr>
                         <td>{{ $loop->iteration}}</td>
+                        @if($data->renterimage != '' )
+                        <td><img src="{{asset('rentowner/uploads/'.$data->renterimage->image_path)}}" width="100rem" height="100rem" alt="image not found"></td>
+                        @else
+                        <td><img src="{{asset('rentowner/default/dumy.png')}}" width="100rem" height="100rem" alt="image not found"></td>
+                        @endif
                         <td>{{ $data->name }} </td>
                         <td>{{ $data->account }} </td>
                         <td class="text-success">{{ $data->created_at->format('Y-M-d') }} </td>
                         <td>
-                        <div class="row justify-contnet-center">
-                        <div class="col-md-3 mt-2"><a href="{{route('developer.tenantowner.edit',$data->id)}}" class="btn btn-sm btn-warning">Update</a>
+                        <div class="row justify-contnet-evenly">
+                        <div class="col-md-3 m-1"><a href="{{route('developer.tenantowner.edit',$data->id)}}" class="btn btn-sm btn-warning">Update</a>
                         </div>    
-                        <div class="col-md-3 mt-2">
+                        <div class="col-md-3 m-1">
                         <form action="{{route('developer.tenantowner.create')}}" method="get">
                             @csrf
                             <input type="hidden" name="id" value="{{$data->id}}">
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                           </form>
+                        </form>
                            </div>
                          </div>
                         </td>
@@ -66,12 +74,22 @@
 <script src="{{asset('layouts/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('layouts/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('layouts/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
+
 <script>
   $(function () {
     $("#table1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
-
+  setTimeout(function() {
+    $('#errorhide').hide(); 
+},8000);
+  setTimeout(function() {
+    $('#success').hide(); 
+},4000);
+  setTimeout(function() {
+    $('#delete').hide(); 
+},4000);
 </script>
 @endsection

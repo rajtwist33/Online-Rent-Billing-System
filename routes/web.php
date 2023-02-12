@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\Developer\DashboardController;
+use App\Http\Controllers\Developer\RenterController;
 use App\Http\Controllers\Developer\TenantOwnerController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -23,11 +25,9 @@ Route::post('/authenticate',[AuthenticationController::class,'login'])->name('au
 Route::get('/logout',[AuthenticationController::class,'logout'])->name('logout');
 
 Route::group(['prefix'=>'developer','as'=>'developer.','middleware' => 'developer'],function(){
-        Route::get('/dashboard',function(){
-            $title = 'Dashboard';
-            return view('developer.dashboard',compact('title'));
-        })->name('dashboard');
+        Route::resource('/dashboard',DashboardController::class);
         Route::resource('/tenantowner',TenantOwnerController::class);
+        Route::post('/tenantowner/update/',[RenterController::class,'updaterenter'])->name('updaterenter');
 });
 
 Route::group(['prefix'=>'renter','as'=>'renter.','middleware' => 'renter'],function(){

@@ -12,11 +12,6 @@
 </head>
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__wobble" src="{{asset('layouts/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
-  </div>
-  @include('sweetalert::alert')
 @include('developer.layouts.header')
 @include('developer.layouts.sidebar')
 <div class="content-wrapper">
@@ -28,7 +23,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('developer.dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('developer.dashboard.index')}}">Home</a></li>
             <li class="breadcrumb-item active">{{ $title }}</li>
           </ol>
         </div>

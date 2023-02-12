@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Developer;
 
 use App\Models\User;
+use App\Models\Image;
+use App\Models\RenterImage;
 use Illuminate\Http\Request;
+use App\Models\RentownerDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
@@ -18,7 +21,7 @@ class TenantOwnerController extends Controller
     public function index(Request $request)
     {
        $title = 'Renter';
-       $datas = User::where('role_id',2)->get();
+       $datas = User::with('renterimage')->where('role_id',2)->latest()->get();
         return view('developer.pages.renter.index',compact('title','datas'));
     }
 
@@ -29,9 +32,13 @@ class TenantOwnerController extends Controller
      */
     public function create(Request $request)
     {
+        $data = RenterImage::where('user_id',$request->id)->first();
+        if(($data->image_path != '')){ 
+            unlink(public_path('rentowner/uploads/'.$data->image_path));
+        }
         User::find($request->id)->delete();
-        toast('success','Renter Account has Deleted.');
-        return redirect()->back();
+        
+        return redirect()->back()->with('delete','Renter Account Deleted !');
     }
 
     /**
@@ -59,8 +66,8 @@ class TenantOwnerController extends Controller
             'role_id'=>2,
            ]
         );
-        toast('success','New Renter Acoount Created .');
-        return redirect()->back();
+     
+        return redirect()->back()->with('success','New RentOwner Account Created');
     }
 
     /**
@@ -83,8 +90,8 @@ class TenantOwnerController extends Controller
     public function edit($tenantowner, Request $request)
     {
         $title = "Renter";
-        $datas = User::find($tenantowner)->get();
-       return view('developer.pages.renter.edit',compact('datas','title'));
+        $datas = User::with('renterdetail')->where('id',$tenantowner)->get();
+        return view('developer.pages.renter.edit',compact('datas','title'));
     }
 
     /**
@@ -96,7 +103,7 @@ class TenantOwnerController extends Controller
      */
     public function update(Request $request, $tenantowner)
     {
-        dd($tenantowner);
+       
 
     }
 
