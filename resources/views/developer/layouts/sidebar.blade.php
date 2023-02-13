@@ -24,8 +24,16 @@
           <li class="nav-item ">
             <a href="{{route('developer.setting.index')}}" class=" nav-link {{ request()->routeIs('developer.setting.index') || request()->routeIs('developer.setting.edit')   ? 'active' : '' }}">
             <i class="fas fa-cogs"></i>
-              <p>
+              <p class="ml-1">
                 Setting
+              </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="{{ route('developer.password_change.index') }}" class=" nav-link {{ request()->routeIs('developer.password_change.index') ? 'active' : '' }}" >
+            <i class="fas fa-key"></i>
+              <p class="ml-1">
+                Change Developer Password
               </p>
             </a>
           </li>

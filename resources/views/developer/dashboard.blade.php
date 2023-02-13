@@ -1,6 +1,8 @@
 @extends('developer.layouts.app')
 @section('style')
 @section('main-body')
+      @include('developer.layouts.error')
+      @include('developer.layouts.success')
       <div class="row">
       <div class="col-12 col-sm-6 col-md-3">
        <a href="{{ route('developer.tenantowner.index')}}" class="text-dark">
@@ -52,5 +54,15 @@
       </div>
 @endsection
 @section('script')
-
+<script>
+  setTimeout(function() {
+    $('#errorhide').hide(); 
+},8000);
+  setTimeout(function() {
+    $('#success').hide(); 
+},4000);
+  setTimeout(function() {
+    $('#delete').hide(); 
+},4000);
+</script>
 @endsection

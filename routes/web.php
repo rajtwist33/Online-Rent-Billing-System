@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Developer\DashboardController;
 use App\Http\Controllers\Developer\DeleteController;
+use App\Http\Controllers\Developer\PasswordController;
 use App\Http\Controllers\Developer\RenterController;
 use App\Http\Controllers\Developer\SettingController;
 use App\Http\Controllers\Developer\TenantOwnerController;
@@ -30,6 +31,7 @@ Route::group(['prefix'=>'developer','as'=>'developer.','middleware' => (['auth',
         Route::resource('/dashboard',DashboardController::class);
         Route::resource('/tenantowner',TenantOwnerController::class);
         Route::resource('/setting',SettingController::class);
+        Route::resource('/password_change',PasswordController::class);
         Route::post('/tenantowner/update/',[RenterController::class,'updaterenter'])->name('updaterenter');
 });
 
