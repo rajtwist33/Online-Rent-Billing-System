@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Developer;
 
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Setting;
 use App\Models\RenterImage;
 use Illuminate\Http\Request;
 use App\Models\RentownerDetail;
@@ -21,8 +22,9 @@ class TenantOwnerController extends Controller
     public function index(Request $request)
     {
        $title = 'Renter';
+       $org_name = Setting::first();
        $datas = User::with('renterimage')->where('role_id',2)->latest()->get();
-        return view('developer.pages.renter.index',compact('title','datas'));
+        return view('developer.pages.renter.index',compact('org_name','title','datas'));
     }
 
     /**
@@ -90,8 +92,9 @@ class TenantOwnerController extends Controller
     public function edit($tenantowner, Request $request)
     {
         $title = "Renter";
+        $org_name = Setting::first();
         $datas = User::with('renterdetail')->where('id',$tenantowner)->get();
-        return view('developer.pages.renter.edit',compact('datas','title'));
+        return view('developer.pages.renter.edit',compact('org_name','datas','title'));
     }
 
     /**

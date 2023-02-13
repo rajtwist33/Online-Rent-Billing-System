@@ -6,7 +6,7 @@
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   </head>
-  <body>
+  <body class="bg-secondary">
   @include('sweetalert::alert')
  <!-- header -->
  <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -19,16 +19,16 @@
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
     </ul>
       <div class="d-flex" >
-        <button class="btn  btn-outline-warning"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Login</button>
+        <button class="btn  btn-warning"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Login</button>
       </div>
     </div>
   </div>
 </nav>
 <!-- header-end  -->
 
-<div class="container">
+<div class="container ">
     <div class="row mt-5">
-        <h2 class="text-dark text-center"> Online Rent Billing System</h2>
+        <h2 class="text-light text-center mt-5"> Online Rent Billing System</h2>
     </div>
 </div>
 

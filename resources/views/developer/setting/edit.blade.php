@@ -10,50 +10,36 @@
       @include('developer.layouts.success')
       <div class="card card-primary">
         <div class="card-header">
-        <h3 class="card-title">Update Renter</h3>
+        <h3 class="card-title">Update Organization Detail</h3>
         </div>
-        <form action="{{route('developer.updaterenter')}}" method="post"enctype="multipart/form-data">
+        <form action="{{route('developer.setting.store')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
-                        <input type="text" name="renter_name" class="form-control" value="{{$datas[0]->name}}" id="exampleInputEmail1" placeholder="Enter Name">
+                    <label for="recipient-name" class="col-form-label">Organization Name:</label>
+                    <input type="text" class="form-control" name="name" value="{{$data->organization_name}}"> </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Address:</label>
+                        <input type="text" class="form-control" name="address" value="{{$data->address}}">
+                </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Phone:</label>
+                        <input type="text" class="form-control" name="phone" value="{{$data->phone}}">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" name="renter_email" value="{{$datas[0]->email}}" id="exampleInputEmail1" placeholder="Enter email">
+                        <label for="recipient-name" class="col-form-label">Email:</label>
+                        <input type="email" class="form-control" name="email" value="{{$data->email}}">
+                        <input type="hidden" class="form-control" name="data_id" value="{{$data->slug}}">
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Phone</label>
-                        <input type="text" class="form-control" name="renter_phone" value="{{$datas[0]->renterdetail != null ? $datas[0]->renterdetail->phone : old('renter_phone') }}" id="exampleInputEmail1" placeholder="Enter Phone">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Address</label>
-                        <input type="text" class="form-control" name="renter_address" value="{{$datas[0]->renterdetail != null ? $datas[0]->renterdetail->address : old('renter_address') }}" id="exampleInputEmail1" placeholder="Enter Address">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">User Id</label>
-                        <input type="text" class="form-control" name="renter_useraccount" value="{{$datas[0]->account}}" id="exampleInputPassword1" placeholder="Enter User Id">
-                    </div>
-                    <div class="form-group">
-                        <input type="hidden" class="form-control" name="data_id" value="{{$datas[0]->id}}" id="exampleInputPassword1" placeholder="Enter User Id">
-                    </div>
-                </div>
-                <div class="col-md-6">     
-                <label for="formFile" class="form-label">Upload Image</label>
-                    <input class="form-control " name="image" type="file" id="formFile" >  
-                    
-                </div>
+                </div> 
                 </div>
                 <div class="col-md-6">
                     <div class="form-check">

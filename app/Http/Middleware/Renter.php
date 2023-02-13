@@ -10,9 +10,12 @@ class Renter
    
     public function handle(Request $request, Closure $next)
     {
+        if(auth()->user()->role_id == 1){
+            return redirect('developer/dashboard');
+        }
         if(auth()->user()->role_id == 2){
             return $next($request);
-        }
-        return redirect('/')->with('error',"You Entered Wrong Credential");
+        }   
+       
     }
 }

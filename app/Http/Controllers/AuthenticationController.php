@@ -16,7 +16,8 @@ class AuthenticationController extends Controller
            
         ]);
  
-        if(auth()->attempt(array('account' => $request['account'], 'password' => $request['password']))){
+        if(auth()->attempt(array('account' => $request['account'], 'password' => $request['password'])))
+        {
             if (auth()->user()->role_id == 1) 
             {   
                 $request->session()->regenerate();
@@ -27,9 +28,13 @@ class AuthenticationController extends Controller
                 $request->session()->regenerate();
                 return redirect()->route('renter.dashboard');
             }
+            else{
+               toast('error','You do not have Permissions');
+                return redirect()->route('login');    
+            }
            
         }
-        toast('Something Went Error','error');
+        toast('Wrong Credentials','error');
         return back();
     }
     public function logout(Request $request)

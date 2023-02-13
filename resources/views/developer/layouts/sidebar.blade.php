@@ -1,7 +1,8 @@
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{route('developer.dashboard.index')}}" class="brand-link ">
       <img src="{{asset('layouts/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light {{ request()->routeIs('developer.dashboard.index') ? 'text-success' : '' }}">ORBS</span>
+      <span class="brand-text font-weight-light {{ request()->routeIs('developer.dashboard.index') ? 'text-success' : '' }}">{{ $org_name->organization_name }}</span>
     </a>
     <div class="sidebar">
       
@@ -13,6 +14,14 @@
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
                 Renter
+              </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="{{route('developer.setting.index')}}" class=" nav-link {{ request()->routeIs('developer.setting.index') || request()->routeIs('developer.setting.edit')   ? 'active' : '' }}">
+            <i class="fas fa-cogs"></i>
+              <p>
+                Setting
               </p>
             </a>
           </li>

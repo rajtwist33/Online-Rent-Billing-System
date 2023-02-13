@@ -13,6 +13,9 @@ class Developer
         if(auth()->user()->role_id == 1){
             return $next($request);
         }
-        return redirect('/')->with('error',"You Entered Wrong Credential");
+        if(auth()->user()->role_id == 2){
+            return redirect('tenant/dashboard');
+        }
+       
     }
 }
