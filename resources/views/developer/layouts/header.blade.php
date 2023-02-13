@@ -9,18 +9,11 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-      
-     
       <li class="nav-item">
-        <a class="nav-link"  href="{{route('logout')}}" class ="btn btn-sm btn-danger">
-        <i class="fas fa-power-off mr-3 text-danger"></i>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
+      <form action="{{route('logout')}}" method="get">
+          @csrf
+          <button type="submit" class="nav-link btn conform_logout" data-toggle="tooltip" title='Power Buttom'> <i class="fas fa-power-off mr-3 text-danger"></i></button>
+      </form> 
       </li>
     </ul>
   </nav>

@@ -12,7 +12,7 @@
         <div class="card-header">
         <h3 class="card-title">Update Renter</h3>
         </div>
-        <form action="{{route('developer.updaterenter')}}" method="post"enctype="multipart/form-data">
+        <form action="{{route('developer.updaterenter')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="card-body">
             <div class="row">
@@ -51,8 +51,7 @@
                 </div>
                 <div class="col-md-6">     
                 <label for="formFile" class="form-label">Upload Image</label>
-                    <input class="form-control " name="image" type="file" id="formFile" >  
-                    
+                    <input class="form-control " name="image" type="file" id="formFile" >     
                 </div>
                 </div>
                 <div class="col-md-6">

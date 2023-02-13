@@ -13,6 +13,7 @@ class Setting extends Model
         'phone',
         'email',
         'address',
+        'image',
         'slug',
     ];
 }

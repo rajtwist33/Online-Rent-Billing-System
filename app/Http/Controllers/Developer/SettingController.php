@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Developer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
-use Hamcrest\Core\Set;
 use Illuminate\Http\Request;
+use Image;
 
 class SettingController extends Controller
 {
@@ -40,23 +40,49 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'name' => 'required',
             'phone' => 'required',
             'address' => 'required|max:30',
             'email' =>  'required',
         ]);
-
-        Setting::updateOrCreate(
+        $data = Setting::where('slug',$request->data_id)->first();
+        if (!empty($request->image)) {
+            if( (!empty($data) && $data->image != '')){ 
+                unlink(public_path('settings/uploads/'.$data->image));
+            }
+            $file = Image::make($request->file('image'));
+            $extension = time().'-'.$request->file('image')->getClientOriginalName();
+            $filename = time().'.' . $extension;
+            $destinationPathThumbnail = public_path('settings/uploads/');
+            $file->resize(50,50);
+            $file->save($destinationPathThumbnail .$filename);
+        
+            Setting::updateOrCreate(
             ['slug' => $request->data_id],
            [
             'organization_name'=>$request->name,
             'phone'=>$request->phone,
             'address'=>$request->address,
             'email'=>$request->email,
+            'image'=>$filename,
             'slug'=>rand(1,9999),
            ]
         );
+    }
+    else if(empty($request->image)) {
+    Setting::updateOrCreate(
+        ['slug' => $request->data_id],
+       [
+        'organization_name'=>$request->name,
+        'phone'=>$request->phone,
+        'address'=>$request->address,
+        'email'=>$request->email,
+        'slug'=>rand(1,9999),
+       ]
+    );
+    }   
      if($request->data_id != '')
      {
         return redirect()->route('developer.setting.index')->with('success','Organization Detail Updated');
@@ -75,7 +101,12 @@ class SettingController extends Controller
      */
     public function show($setting)
     {
-        Setting::where('slug',$setting)->delete();
+        $data = Setting::where('id',$setting)->first();
+        if( (!empty($data) && $data->image != '')){
+            unlink(public_path('settings/uploads/'.$data->image));
+            Setting::where('id',$setting)->delete();
+        }
+        Setting::where('id',$setting)->delete();
         return redirect()->back()->with('success','Organization Detail Deleted .');
     }
 

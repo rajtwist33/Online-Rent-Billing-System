@@ -54,8 +54,27 @@
 <script src="{{asset('layouts/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
 <script src="{{asset('layouts/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
 <script src="{{asset('layouts/plugins/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('layouts/dist/js/demo.js') }}"></script>
-<script src="{{asset('layouts/dist/js/pages/dashboard2.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+ 
+     $('.conform_logout').click(function(event) {
+          var form =  $(this).closest("form");
+          var name = $(this).data("name");
+          event.preventDefault();
+          swal({
+              title: `Are you sure you want to Logout?`,
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            }
+          });
+      });
+  
+</script>
 @yield('script')
 </body>
 </html>

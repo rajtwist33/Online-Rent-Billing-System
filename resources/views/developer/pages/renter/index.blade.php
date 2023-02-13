@@ -45,7 +45,7 @@
                         <form action="{{route('developer.tenantowner.create')}}" method="get">
                             @csrf
                             <input type="hidden" name="id" value="{{$data->id}}">
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
                         </form>
                            </div>
                          </div>
@@ -75,7 +75,28 @@
 <script src="{{asset('layouts/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('layouts/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+ 
+     $('.show_confirm').click(function(event) {
+          var form =  $(this).closest("form");
+          var name = $(this).data("name");
+          event.preventDefault();
+          swal({
+              title: `Are you sure you want to delete this record?`,
+              text: "If you delete this, it will be gone forever.",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            }
+          });
+      });
+  
+</script>
 <script>
   $(function () {
     $("#table1").DataTable({

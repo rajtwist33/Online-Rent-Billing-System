@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\Developer;
 
 use App\Models\User;
-use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\RentownerDetail;
 use App\Http\Controllers\Controller;
 use App\Models\RenterImage;
 use Illuminate\Support\Facades\Hash;
-
+use Image;
 class RenterController extends Controller
 {
     public function updaterenter(Request $request){
-       
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:3048',
+        ]);
+
         User::where('id',$request->data_id)->update(  
            [
             'name'=>$request->renter_name,
@@ -39,11 +41,12 @@ class RenterController extends Controller
             if( (!empty($data) && $data->image_path != '')){ 
                 unlink(public_path('rentowner/uploads/'.$data->image_path));
             }
-            $file =$request->file('image');
-            $extension = $file->getClientOriginalExtension(); 
+            $file = Image::make($request->file('image'));
+            $extension = time().'-'.$request->file('image')->getClientOriginalName();
             $filename = time().'.' . $extension;
-            $file->move(public_path('rentowner/uploads/'), $filename);
-            $data['image']= 'public/rentowner/uploads/'.$filename;
+            $destinationPathThumbnail = public_path('rentowner/uploads/');
+            $file->resize(100,100);
+            $file->save($destinationPathThumbnail .$filename);
           
             RenterImage::updateOrCreate(
                 [

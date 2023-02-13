@@ -11,7 +11,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{route('developer.setting.store')}}" method="post">
+        <form action="{{route('developer.setting.store')}}" method="post" enctype="multipart/form-data">
             @csrf
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Organization Name:</label>
@@ -28,6 +28,10 @@
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Email:</label>
             <input type="email" class="form-control" name="email" id="recipient-name">
+          </div>
+          <div class="form-group">     
+            <label for="formFile" class="form-label">Upload Image</label>
+            <input class="form-control " name="image" type="file" id="formFile" >     
           </div>
       </div>
       <div class="modal-footer">

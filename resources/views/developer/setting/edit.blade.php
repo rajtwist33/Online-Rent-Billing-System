@@ -40,12 +40,12 @@
                         <input type="hidden" class="form-control" name="data_id" value="{{$data->slug}}">
                     </div>
                 </div> 
+                <div class="col-md-6">     
+                <label for="formFile" class="form-label">Upload Image</label>
+                    <input class="form-control " name="image" value="{{$data->image}}" type="file" id="formFile" >     
                 </div>
-                <div class="col-md-6">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
+                <div class="col-md-6">     
+                <img src="{{asset('settings/uploads/'.$data->image)}}" alt="Image Not Found">
                 </div>
             </div>
         </div>

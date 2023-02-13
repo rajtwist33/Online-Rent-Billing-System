@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Developer;
 
 use App\Models\User;
-use App\Models\Image;
 use App\Models\Setting;
 use App\Models\RenterImage;
 use Illuminate\Http\Request;
@@ -35,7 +34,8 @@ class TenantOwnerController extends Controller
     public function create(Request $request)
     {
         $data = RenterImage::where('user_id',$request->id)->first();
-        if(($data->image_path != '')){ 
+       
+        if(($data != '')){ 
             unlink(public_path('rentowner/uploads/'.$data->image_path));
         }
         User::find($request->id)->delete();

@@ -1,8 +1,12 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{route('developer.dashboard.index')}}" class="brand-link ">
+    @if($org_name != null && $org_name->image != null)
+      <img src="{{asset('settings/uploads/'.$org_name->image)}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    @else
       <img src="{{asset('layouts/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light {{ request()->routeIs('developer.dashboard.index') ? 'text-success' : '' }}">{{ $org_name->organization_name }}</span>
+    @endif  
+      <span class="brand-text font-weight-light {{ request()->routeIs('developer.dashboard.index') ? 'text-success' : '' }}">{{ $org_name == null ? "ORBS" : $org_name->organization_name  }}</span>
     </a>
     <div class="sidebar">
       
