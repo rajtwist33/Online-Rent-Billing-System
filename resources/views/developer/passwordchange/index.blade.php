@@ -38,8 +38,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Old Password</label>
-                        <input type="text" class="form-control" name="old_pass" value="{{old('old_pass')}}"  id="exampleInputPassword1" placeholder="Enter Old Password">
+                        <label for="exampleInputPassword1">Current Password</label>
+                        <input type="text" class="form-control" name="current_password" value="{{old('current_password')}}"  id="exampleInputPassword1" placeholder="Enter Current Password">
                     </div>
                    
                 </div>
@@ -53,7 +53,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Conform Password</label>
-                        <input type="text" class="form-control" name="conf_pass" value="{{old('conf_pass')}}" id="exampleInputPassword1" placeholder="Enter Again Password">
+                        <input type="text" class="form-control" name="conf_pass" value="{{old('conf_pass')}}" id="exampleInputPassword1" placeholder="Conform New Password">
                     </div>
                    
                 </div>

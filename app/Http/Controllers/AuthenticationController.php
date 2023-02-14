@@ -26,7 +26,7 @@ class AuthenticationController extends Controller
             else if(auth()->user()->role_id == 2)
             {
                 $request->session()->regenerate();
-                return redirect()->route('renter.dashboard');
+                return redirect()->route('renter.dashboard.index');
             }
             else{
                toast('error','You do not have Permissions');

@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Developer;
+namespace App\Http\Controllers\Renter;
 
-use App\Models\User;
 use App\Models\Setting;
 use Illuminate\Http\Request;
-use App\Rules\MatchOldPassword;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 
-class PasswordController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +15,9 @@ class PasswordController extends Controller
      */
     public function index()
     {
-        $title = 'Password Change';
-        $data = User::where('role_id',1)->first();
         $org_name = Setting::first();
-        return view('developer.passwordchange.index',compact('title','data','org_name'));
+        $title = 'Dashboard';
+        return view('renter.layouts.app',compact('title','org_name'));
     }
 
     /**
@@ -42,25 +38,7 @@ class PasswordController extends Controller
      */
     public function store(Request $request)
     {
-       
-        $request->validate([
-            'current_password'=>['required', new MatchOldPassword],
-            'new_pass' => 'required|min:6',
-            'conf_pass' => 'required|same:new_pass',
-            
-        ]);
-  
-        User::updateOrCreate(
-            ['id' => $request->data_id],
-           [
-            'name'=>$request->name,
-            'account'=>$request->account,
-            'password'=>Hash::make($request->new_pass),
-            'role_id'=>1,
-           ]
-        );
-    
-        return redirect()->route('developer.dashboard.index')->with('success','Developer Password Changed Suceesfully !');
+        //
     }
 
     /**

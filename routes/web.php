@@ -7,6 +7,7 @@ use App\Http\Controllers\Developer\PasswordController;
 use App\Http\Controllers\Developer\RenterController;
 use App\Http\Controllers\Developer\SettingController;
 use App\Http\Controllers\Developer\TenantOwnerController;
+use App\Http\Controllers\Renter\DashboardController as RenterDashboardController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,8 +37,6 @@ Route::group(['prefix'=>'developer','as'=>'developer.','middleware' => (['auth',
 });
 
 Route::group(['prefix'=>'renter','as'=>'renter.','middleware' =>(['auth', 'user-access:2'])],function(){
-        Route::get('/dashboard',function(){
-            return view('renter.layouts.dashboard');
-        })->name('dashboard');
+        Route::resource('/dashboard',RenterDashboardController::class);
 });
 
