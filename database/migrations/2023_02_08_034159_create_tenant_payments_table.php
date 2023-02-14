@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('tenant_id')->unsigned()->index();
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
+            $table->string('paid_date')->nullable();
             $table->string('paid_amount')->nullable();
             $table->string('dues')->nullable();
             $table->string('advance')->nullable();

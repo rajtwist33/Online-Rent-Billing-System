@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tenant_images', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('tenant_id')->unsigned()->index();
-            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
-            $table->string('image_path')->nullable();
+           $table->boolean('status')->default('0')->comment('0:available , 1:reserved');
             $table->string('slug');
             $table->timestamps();
         });
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenant_images');
+        Schema::dropIfExists('rooms');
     }
 };

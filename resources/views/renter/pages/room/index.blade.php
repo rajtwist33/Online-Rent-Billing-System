@@ -1,4 +1,4 @@
-@extends('developer.layouts.app')
+@extends('renter.layouts.app')
 @section('style')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -6,59 +6,56 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 @endsection
 @section('main-body')
-@include('developer.layouts.success')
-@include('developer.layouts.delete')
+@include('renter.layouts.success')
+@include('renter.layouts.delete')
 <div class="card">
-      @include('developer.layouts.error')
+      @include('renter.layouts.error')
     <div class="card-body">
-    @if(empty($data))
         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-      Add  Organization Detail
+        Add Room
         </button>
-        
-    @endif
     <table id="table1" class="table table-bordered table-striped">
             <thead>
                 <tr>
                 <th>#</th>
-                <th>Org Image</th>
-                <th>Org Name</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>Email</th>
+                <th>Room Name</th>
+                <th>Room Status</th>
+                <th>Created Date</th>
                 <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @if(!empty($data))
+               @foreach ($rooms as $room)
                <tr>
-                <td>1</td>
-                <td><img src="{{asset('settings/uploads/'.$data->image)}}" width="100rem" height="100rem" alt="Image Not Found" ></td>
-                <td>{{$data->organization_name}}</td>
-                <td>{{$data->phone}}</td>
-                <td>{{$data->address}}</td>
-                <td>{{$data->email}}</td>
-                <td>
-                <div class="row justify-contnet-evenly">
-                <div class="col-md-3 m-1">
-                    <a href="{{route('developer.setting.edit',$data->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Setting'><i class="fa fa-edit text-primary"></i></a>
-                </div>
-                <div class="col-md-3 m-1">
-                    <form action="{{route('developer.setting.show',$data->id)}}" method="get">
-                        @csrf
-                        <button type="submit" class=" btn show_confirm" data-toggle="tooltip" title='Delete'><i class="fa fa-trash text-danger"></i></button>
-                   </form>
-                </div>
-                      
-                </div>
+                 <td>{{$loop->iteration}}</td>
+                 <td>{{$room->name}}</td>
+                 @if($room->status == 0)
+                 <td><span class="text-primary"> Availbale</span></td>
+                 @else
+                 <td><span class="text-info"> Reserved</span></td>
+                 @endif
+                 <td class="text-success">{{ $room->created_at->format('Y-M-d') }} </td>
+                 <td>
+                  <div class="row justify-contnet-evenly">
+                  <div class="col-md-2 ">
+                      <a href="{{route('renter.room.edit',$room->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Setting'><i class="fa fa-edit text-primary"></i></a>
+                  </div>
+                  <div class="col-md-2 ">
+                      <form action="{{route('renter.room.create')}}" method="get">
+                          @csrf
+                          <input type="hidden" name="data_id" value="{{$room->slug}}" id="">
+                          <button type="submit" class=" btn show_confirm" data-toggle="tooltip" title='Delete'><i class="fa fa-trash text-danger"></i></button>
+                    </form>
+                  </div>      
+                  </div>  
                   </td>
-               </tr>
-               @endif
+                </tr>
+                 @endforeach
             </tbody>
         </table>
     </div>
 </div>
-@include('developer.setting.createorganizationmodal')
+@include('renter.pages.room.create_renter_modal')
 @endsection
 
 @section('script')
@@ -99,7 +96,6 @@
       });
   
 </script>
-
 <script>
   $(function () {
     $("#table1").DataTable({

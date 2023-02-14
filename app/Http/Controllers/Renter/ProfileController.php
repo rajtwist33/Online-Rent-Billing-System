@@ -51,10 +51,6 @@ class ProfileController extends Controller
             [
              'name'=>$request->renter_name,
              'email'=>$request->renter_email != '' ?$request->renter_email : '',
-             'account'=>$request->renter_useraccount,
-             'password_name'=>$request->password,
-             'password'=>Hash::make($request->password),
-             'role_id'=>2,
             ]
          );
          RentownerDetail::updateOrCreate(

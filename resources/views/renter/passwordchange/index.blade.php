@@ -1,4 +1,4 @@
-@extends('renter.layouts.app')
+@extends('Renter.layouts.app')
 @section('style')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -6,51 +6,62 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 @endsection
 @section('main-body')
-      @include('renter.layouts.error')
-      @include('renter.layouts.success')
+      @include('Renter.layouts.error')
+      @include('Renter.layouts.success')
       <div class="card card-primary">
         <div class="card-header">
-        <h3 class="card-title">Update Profile</h3>
+        <h3 class="card-title">Update  Password</h3>
         </div>
-        <form action="{{route('renter.profile.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('renter.change_password.store')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
-                        <input type="text" name="renter_name" class="form-control" value="{{$datas[0]->name}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="name" class="form-control" value="{{$demo->name}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" name="renter_email" value="{{$datas[0]->email}}" id="exampleInputEmail1" placeholder="Enter email">
+                        <input type="email" class="form-control" name="email" value="{{$demo->email}}" id="exampleInputEmail1" placeholder="Enter email">
+                    </div>
+                </div>
+              
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">User Id</label>
+                        <input type="text" class="form-control" name="account" value="{{$demo->account}}" id="exampleInputPassword1" placeholder="Enter User Id">
+                    </div>
+                   
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Current Password</label>
+                        <input type="text" class="form-control" name="current_password" value="{{old('current_password')}}"  id="exampleInputPassword1" placeholder="Enter Current Password">
+                    </div>
+                   
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">New Password</label>
+                        <input type="text" class="form-control" name="new_pass" value="{{old('new_pass')}}" id="exampleInputPassword1" placeholder="Enter New Password">
+                    </div>
+                   
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Conform Password</label>
+                        <input type="text" class="form-control" name="conf_pass" value="{{old('conf_pass')}}" id="exampleInputPassword1" placeholder="Conform New Password">
+                    </div>
+                   
+                </div>
+                <div class="form-group">
+                        <input type="hidden" class="form-control" name="data_id" value="{{$demo->id}}" id="exampleInputPassword1" placeholder="Enter User Id">
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Phone</label>
-                        <input type="text" class="form-control" name="renter_phone" value="{{$datas[0]->renterdetail != null ? $datas[0]->renterdetail->phone : old('renter_phone') }}" id="exampleInputEmail1" placeholder="Enter Phone">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Address</label>
-                        <input type="text" class="form-control" name="renter_address" value="{{$datas[0]->renterdetail != null ? $datas[0]->renterdetail->address : old('renter_address') }}" id="exampleInputEmail1" placeholder="Enter Address">
-                    </div>
-                </div>
-                <div class="col-md-6">     
-                <label for="formFile" class="form-label">Upload Image</label>
-                    <input class="form-control " name="image" type="file" id="formFile" >     
-                </div>
-                
-                <div class="col-md-6">   
-                @if($datas[0]->renterimage != '' )  
-                <img src="{{asset('rentowner/uploads/'.$datas[0]->renterimage->image_path)}}" width="100rem" height="100rem" alt="image not found">
-                @endif    
-                </div>
-                <div class="col-md-6 mt-2">
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">Check me out</label>

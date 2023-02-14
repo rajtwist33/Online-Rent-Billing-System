@@ -8,7 +8,9 @@ use App\Http\Controllers\Developer\RenterController;
 use App\Http\Controllers\Developer\SettingController;
 use App\Http\Controllers\Developer\TenantOwnerController;
 use App\Http\Controllers\Renter\DashboardController as RenterDashboardController;
+use App\Http\Controllers\Renter\PasswordChangeController;
 use App\Http\Controllers\Renter\ProfileController;
+use App\Http\Controllers\Renter\RoomController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,5 +42,7 @@ Route::group(['prefix'=>'developer','as'=>'developer.','middleware' => (['auth',
 Route::group(['prefix'=>'renter','as'=>'renter.','middleware' =>(['auth', 'user-access:2'])],function(){
         Route::resource('/dashboard',RenterDashboardController::class);
         Route::resource('/profile',ProfileController::class);
+        Route::resource('/room',RoomController::class);
+        Route::resource('/change_password',PasswordChangeController::class);
 });
 

@@ -1,4 +1,4 @@
-@extends('developer.layouts.app')
+@extends('renter.layouts.app')
 @section('style')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -6,59 +6,35 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 @endsection
 @section('main-body')
-@include('developer.layouts.success')
-@include('developer.layouts.delete')
-<div class="card">
-      @include('developer.layouts.error')
-    <div class="card-body">
-    @if(empty($data))
-        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-      Add  Organization Detail
-        </button>
-        
-    @endif
-    <table id="table1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                <th>#</th>
-                <th>Org Image</th>
-                <th>Org Name</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if(!empty($data))
-               <tr>
-                <td>1</td>
-                <td><img src="{{asset('settings/uploads/'.$data->image)}}" width="100rem" height="100rem" alt="Image Not Found" ></td>
-                <td>{{$data->organization_name}}</td>
-                <td>{{$data->phone}}</td>
-                <td>{{$data->address}}</td>
-                <td>{{$data->email}}</td>
-                <td>
-                <div class="row justify-contnet-evenly">
-                <div class="col-md-3 m-1">
-                    <a href="{{route('developer.setting.edit',$data->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Setting'><i class="fa fa-edit text-primary"></i></a>
+@include('renter.layouts.success')
+@include('renter.layouts.delete')
+<div class="card card-primary">
+@include('renter.layouts.error')
+        <div class="card-header">
+        <h3 class="card-title">Update Room</h3>
+        </div>
+        <form action="{{route('renter.room.store')}}" method="post" enctype="multipart/form-data">
+            @csrf
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Room Name</label>
+                        <input type="text" name="room_name" class="form-control" value="{{$room->name}}" id="exampleInputEmail1" placeholder="Enter Name">
+                    </div>
+                </div>   
+                <div class="form-group">
+                    <input type="hidden" class="form-control" name="data_id" value="{{$room->id}}" id="exampleInputPassword1" placeholder="Enter User Id">
                 </div>
-                <div class="col-md-3 m-1">
-                    <form action="{{route('developer.setting.show',$data->id)}}" method="get">
-                        @csrf
-                        <button type="submit" class=" btn show_confirm" data-toggle="tooltip" title='Delete'><i class="fa fa-trash text-danger"></i></button>
-                   </form>
-                </div>
-                      
-                </div>
-                  </td>
-               </tr>
-               @endif
-            </tbody>
-        </table>
-    </div>
-</div>
-@include('developer.setting.createorganizationmodal')
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+     </div>
+   
 @endsection
 
 @section('script')
@@ -99,7 +75,6 @@
       });
   
 </script>
-
 <script>
   $(function () {
     $("#table1").DataTable({

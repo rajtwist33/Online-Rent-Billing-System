@@ -32,9 +32,22 @@
               </p>
             </a>
           </li>
-          
-          
-          
+          <li class="nav-item ">
+            <a href="{{route('renter.room.index')}}" class=" nav-link {{ request()->routeIs('renter.room.index') || request()->routeIs('renter.room.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                 Room
+              </p>
+            </a>
+          </li>  
+          <li class="nav-item ">
+            <a href="{{ route('renter.change_password.index') }}" class=" nav-link {{ request()->routeIs('renter.change_password.index') ? 'active' : '' }}" >
+            <i class="fas fa-key"></i>
+              <p class="ml-1">
+                Change Renter Password
+              </p>
+            </a>
+          </li>  
         </ul>
       </nav>
     </div>
