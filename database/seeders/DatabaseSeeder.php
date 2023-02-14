@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
                 'email'=>'developer@gmail.com',
                 'account'=>'developer',
                 'email_verified_at'=>now(),
+                'password_name'=>'password',
                 'password'=>Hash::make('password'),
                 'role_id'=>1,
                 

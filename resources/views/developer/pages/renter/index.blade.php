@@ -20,7 +20,8 @@
                 <th>#</th>
                 <th>Profile</th>
                 <th>Name</th>
-                <th>User Id</th>
+                <th>Renter Id</th>
+                <th>Renter Password</th>
                 <th>Created Date</th>
                 <th>Action</th>
                 </tr>
@@ -36,12 +37,13 @@
                         @endif
                         <td>{{ $data->name }} </td>
                         <td>{{ $data->account }} </td>
+                        <td>{{ $data->password_name }} </td>
                         <td class="text-success">{{ $data->created_at->format('Y-M-d') }} </td>
                         <td>
                         <div class="row justify-contnet-evenly">
-                        <div class="col-md-3 m-1"><a href="{{route('developer.tenantowner.edit',$data->id)}}" class="btn btn-sm btn-warning">Update</a>
+                        <div class="col-md-3 m-2"><a href="{{route('developer.tenantowner.edit',$data->id)}}" class="btn btn-sm btn-warning">Update</a>
                         </div>    
-                        <div class="col-md-3 m-1">
+                        <div class="col-md-3 m-2">
                         <form action="{{route('developer.tenantowner.create')}}" method="get">
                             @csrf
                             <input type="hidden" name="id" value="{{$data->id}}">

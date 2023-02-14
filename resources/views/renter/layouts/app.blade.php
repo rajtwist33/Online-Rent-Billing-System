@@ -12,8 +12,8 @@
 </head>
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-@include('developer.layouts.header')
-@include('developer.layouts.sidebar')
+@include('renter.layouts.header')
+@include('renter.layouts.sidebar')
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -43,7 +43,7 @@
 </div>
 <aside class="control-sidebar control-sidebar-dark">
 </aside>
-@include('developer.layouts.footer')
+@include('renter.layouts.footer')
 </div>
 <script src="{{asset('layouts/plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('layouts/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

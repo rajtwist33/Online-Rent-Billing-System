@@ -64,6 +64,7 @@ class TenantOwnerController extends Controller
            [
             'name'=>$request->renter_name,
             'account'=>$request->renter_useraccount,
+            'password_name'=>$request->renter_password,
             'password'=>Hash::make($request->renter_password),
             'role_id'=>2,
            ]
@@ -93,7 +94,7 @@ class TenantOwnerController extends Controller
     {
         $title = "Renter";
         $org_name = Setting::first();
-        $datas = User::with('renterdetail')->where('id',$tenantowner)->get();
+        $datas = User::with('renterdetail','renterimage')->where('id',$tenantowner)->get();
         return view('developer.pages.renter.edit',compact('org_name','datas','title'));
     }
 

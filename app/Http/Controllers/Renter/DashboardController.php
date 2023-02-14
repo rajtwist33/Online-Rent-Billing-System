@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Renter;
 
+
 use App\Models\Setting;
+use App\Models\RenterImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 class DashboardController extends Controller
 {
@@ -16,8 +20,9 @@ class DashboardController extends Controller
     public function index()
     {
         $org_name = Setting::first();
+        $data =RenterImage::where('user_id',Auth::user()->id)->first();  
         $title = 'Dashboard';
-        return view('renter.layouts.app',compact('title','org_name'));
+        return view('renter.dashboard',compact('title','org_name','data'));
     }
 
     /**

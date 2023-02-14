@@ -1,4 +1,4 @@
-@extends('developer.layouts.app')
+@extends('renter.layouts.app')
 @section('style')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -6,13 +6,13 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 @endsection
 @section('main-body')
-      @include('developer.layouts.error')
-      @include('developer.layouts.success')
+      @include('renter.layouts.error')
+      @include('renter.layouts.success')
       <div class="card card-primary">
         <div class="card-header">
-        <h3 class="card-title">Update Renter</h3>
+        <h3 class="card-title">Update Profile</h3>
         </div>
-        <form action="{{route('developer.updaterenter')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('renter.profile.store')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="card-body">
             <div class="row">
@@ -77,7 +77,6 @@
         </form>
      </div>
    
-@include('developer.pages.renter.create_renter_modal')
 @endsection
 
 @section('script')

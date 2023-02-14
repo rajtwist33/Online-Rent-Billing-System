@@ -12,16 +12,15 @@ use Image;
 class RenterController extends Controller
 {
     public function updaterenter(Request $request){
-        $this->validate($request, [
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:3048',
-        ]);
+      
 
         User::where('id',$request->data_id)->update(  
            [
             'name'=>$request->renter_name,
             'email'=>$request->renter_email != '' ?$request->renter_email : '',
             'account'=>$request->renter_useraccount,
-            'password'=>Hash::make($request->renter_password),
+            'password_name'=>$request->password,
+            'password'=>Hash::make($request->password),
             'role_id'=>2,
            ]
         );
@@ -38,6 +37,9 @@ class RenterController extends Controller
         $data = RenterImage::where('user_id',$request->data_id)->first();
        
         if (!empty($request->image)) {
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:3048',
+        ]);
             if( (!empty($data) && $data->image_path != '')){ 
                 unlink(public_path('rentowner/uploads/'.$data->image_path));
             }
