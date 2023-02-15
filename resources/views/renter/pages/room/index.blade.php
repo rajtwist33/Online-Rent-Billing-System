@@ -38,7 +38,14 @@
                  <td>
                   <div class="row justify-contnet-evenly">
                   <div class="col-md-2 ">
-                      <a href="{{route('renter.room.edit',$room->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Setting'><i class="fa fa-edit text-primary"></i></a>
+                      <form action="{{route('renter.tenant.create')}}" method="get">
+                          @csrf
+                          <input type="hidden" name="data_id" value="{{$room->id}}" id="">
+                          <button type="submit" class="btn" data-toggle="tooltip" title='Add Tenant'><i class="fa fa-plus text-success"></i></button>
+                    </form>
+                  </div>      
+                  <div class="col-md-2 ">
+                      <a href="{{route('renter.room.edit',$room->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Room'><i class="fa fa-edit text-primary"></i></a>
                   </div>
                   <div class="col-md-2 ">
                       <form action="{{route('renter.room.create')}}" method="get">

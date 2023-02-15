@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a href="{{route('renter.room.index')}}" class=" nav-link {{ request()->routeIs('renter.room.index') || request()->routeIs('renter.room.edit') ? 'active' : '' }}">
+            <a href="{{route('renter.room.index')}}" class=" nav-link {{ request()->routeIs('renter.room.index') || request()->routeIs('renter.room.edit') || request()->routeIs('renter.tenant.create')? 'active' : '' }}">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
                  Room
