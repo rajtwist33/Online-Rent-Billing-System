@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Renter;
 use App\Models\Setting;
 use App\Models\Renter\Room;
 use App\Models\RenterImage;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class RoomController extends Controller
         $org_name = Setting::first();
         $data =RenterImage::where('user_id',Auth::user()->id)->first();  
         $title = 'Room';
-        $rooms = Room::where('user_id',Auth::user()->id)->get();
+        $rooms = Room::where('user_id',Auth::user()->id)->latest()->get();
         return view('renter.pages.room.index',compact('title','org_name','data','rooms'));
    
     }
@@ -34,7 +35,7 @@ class RoomController extends Controller
     public function create(Request $request)
     {
         Room::where('slug',$request->data_id)->Where('user_id',Auth::user()->id)->delete();
-       return redirect()->back();
+        return redirect()->back();
     }
 
     /**
@@ -47,21 +48,31 @@ class RoomController extends Controller
     {
         
        $request->validate([
-            'room_name'=>'required|unique:rooms,name',
+            'room_name'=>'required',
        ]);
-
-       Room::updateOrCreate(
-            ['id'=>$request->data_id],
-            [
-                'name' => $request->room_name,
-                'user_id'=>Auth::user()->id,
-                'slug' => rand(1,9999),
-            ]
-       );
-       if($request->data_id != ''){
-        return redirect()->route('renter.room.index')->with('success',' Room Name Updated .');
-       }
-       return redirect()->back()->with('success','New Room Created .');
+       
+    $check = Room::where('user_id',Auth::user()->id)->Where('name',$request->room_name)->first();
+  
+    if($check == null)
+        {
+            Room::updateOrCreate(
+                ['id'=>$request->data_id],
+                [
+                    'name' => Str::lower($request->room_name),
+                    'user_id'=>Auth::user()->id,
+                    'slug' => rand(1,9999),
+                ]
+           );
+           if($request->data_id != ''){
+            return redirect()->route('renter.room.index')->with('success',' Room Name Updated .');
+           }
+           return redirect()->back()->with('success','New Room Created .');
+        } 
+        else
+        {
+            return redirect()->back()->with('delete','Room name has already Exist.');
+        }
+       
     }
 
     /**

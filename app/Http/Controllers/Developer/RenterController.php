@@ -60,9 +60,6 @@ class RenterController extends Controller
                 ]
         );
         }
-
-       
-        
-            return redirect()->back()->with('success',' RentOwner Account Updated ');     
+        return redirect()->back()->with('success',' RentOwner Account Updated ');     
     }
 }

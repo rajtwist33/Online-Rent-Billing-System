@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Room Name</label>
-                        <input type="text" name="room_name" class="form-control" value="{{$room->name}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="room_name" class="form-control" value="{!! Str::ucfirst($room->name) !!}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="form-group">

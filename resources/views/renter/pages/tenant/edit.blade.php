@@ -12,7 +12,8 @@
 <div class="card card-primary">
 @include('renter.layouts.error')
         <div class="card-header">
-        <h3 class="card-title">Room ID : {!! Str::ucfirst($room->name) !!}</h3>
+        <label for="" class="card-title"> Update Tenant </label>
+            <span class="card-title float-right">Room ID : {!! Str::ucfirst($tenants->tenanthasroom->name) !!}</span>
         </div>
         <form action="{{route('renter.tenant.store')}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -21,73 +22,89 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Name</label>
-                        <input type="text" name="name" class="form-control" value="{{old('name')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="name" class="form-control" value="{{$tenants->name}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Occupation</label>
-                        <input type="text" name="occupation" class="form-control" value="{{old('occupation')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="occupation" class="form-control" value="{{$tenants->occupation}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Phone</label>
-                        <input type="text" name="phone" class="form-control" value="{{old('phone')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="phone" class="form-control" value="{{$tenants->phone}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Address</label>
-                        <input type="text" name="address" class="form-control" value="{{old('address')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="address" class="form-control" value="{{$tenants->address}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Parent Name</label>
-                        <input type="text" name="parent_name" class="form-control" value="{{old('parent_name')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="parent_name" class="form-control" value="{{$tenants->parent_name}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Parent Nnumber</label>
-                        <input type="text" name="parent_number" class="form-control" value="{{old('parent_number')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="parent_number" class="form-control" value="{{$tenants->parent_number}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Total Resident</label>
-                        <input type="text" name="total_resident" class="form-control" value="{{old('total_resident')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="total_resident" class="form-control" value="{{$tenants->total_resident}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Fee</label>
-                        <input type="text" name="fee" class="form-control" value="{{old('fee')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text" name="fee" class="form-control" value="{{$tenants->fee}}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Image</label>
-                        <input type="file" name="image" class="d-block" value="{{old('image')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="file" name="image" class="d-block" value="" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
                 </div>   
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Image Preview</label>
+                <label for="exampleInputEmail1">Tenant Image Preview</label>
+                    <div class="form-group"> 
+                        @if($tenants->tenantimage != '')
+                        <img src="{{asset('tenant/uploads/'.$tenants->tenantimage->image_path)}}" width="100rem" height="100rem" alt="image not found">   
+                        @endif
                     </div>
                 </div>   
+                <div class="col-md-6">
+                <div class="form-group">
+                     <label for="exampleInputEmail1">Change  Tenant Room</label>
+                    <div class="input-group">
+                    <select class="custom-select" name="room_id" id="inputGroupSelect04" aria-label="Example select with button addon">
+                        <option selected value="{{$tenants->tenanthasroom->id}}">{{$tenants->tenanthasroom->name}}</option>
+                        @foreach ($rooms as $room )
+                        <option  value="{{$room->id}}">{{$room->name}}</option>
+                        @endforeach
+                    </select>
+                   
+                    </div>
+                </div>
+                </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tenant Description</label>
-                        <textarea class="ckeditor form-control" name="description"> {!! old('description')!!}</textarea>                  
+                        <textarea class="ckeditor form-control" name="description"> {!! $tenants->description!!}</textarea>                  
                       </div>
-                </div>   
-                <div class="form-group">
-                    <input type="hidden" class="form-control" name="room_id" value="{{$room->id}}" id="exampleInputPassword1" placeholder="">
-                </div>
+                </div>     
             </div>
         </div>
+        <input type="hidden" class="form-control" name="data_id" value="{{$tenants->id}}" id="exampleInputPassword1" placeholder="">
+        <input type="hidden" class="form-control" name="old_room" value="{{$tenants->tenanthasroom->id}}" id="exampleInputPassword1" placeholder="">
 
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>

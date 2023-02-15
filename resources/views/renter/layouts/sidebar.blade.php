@@ -41,6 +41,14 @@
             </a>
           </li>  
           <li class="nav-item ">
+            <a href="{{route('renter.tenant.index')}}" class=" nav-link {{ request()->routeIs('renter.tenant.index') || request()->routeIs('renter.tenant.show') || request()->routeIs('renter.tenant.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                 Tenant
+              </p>
+            </a>
+          </li>  
+          <li class="nav-item ">
             <a href="{{ route('renter.change_password.index') }}" class=" nav-link {{ request()->routeIs('renter.change_password.index') ? 'active' : '' }}" >
             <i class="fas fa-key"></i>
               <p class="ml-1">

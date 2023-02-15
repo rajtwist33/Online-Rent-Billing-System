@@ -5,96 +5,86 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" />
-  @endsection
+@endsection
 @section('main-body')
 @include('renter.layouts.success')
 @include('renter.layouts.delete')
 <div class="card card-primary">
 @include('renter.layouts.error')
         <div class="card-header">
-        <h3 class="card-title">Room ID : {!! Str::ucfirst($room->name) !!}</h3>
+        <h3 class="card-title">Room ID : {!! Str::ucfirst($tenants->tenanthasroom->name) !!}</h3>
         </div>
-        <form action="{{route('renter.tenant.store')}}" method="post" enctype="multipart/form-data">
-            @csrf
+       
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Name</label>
-                        <input type="text" name="name" class="form-control" value="{{old('name')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                    
+                        <img src="{{asset('tenant/uploads/'.$tenants->tenantimage->image_path)}}" width="100rem" height="100rem" alt="image not found">   
+                    </div>
+                </div>
+                <div class="col-md-6">
+                <label for="exampleInputEmail1" class="m-2"> Joined Date : </label>
+                        {{ $tenants->created_at->format('Y-M-d') }} 
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"> Name : </label>
+                            {{ $tenants->name }}
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Occupation</label>
-                        <input type="text" name="occupation" class="form-control" value="{{old('occupation')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <label for="exampleInputEmail1"> Occupation : </label>
+                             {{ $tenants->occupation }}
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Phone</label>
-                        <input type="text" name="phone" class="form-control" value="{{old('phone')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <label for="exampleInputEmail1"> Phone : </label>
+                             {{ $tenants->phone }}
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Address</label>
-                        <input type="text" name="address" class="form-control" value="{{old('address')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <label for="exampleInputEmail1"> Address : </label>
+                             {{ $tenants->address }}
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Parent Name</label>
-                        <input type="text" name="parent_name" class="form-control" value="{{old('parent_name')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <label for="exampleInputEmail1"> Parent Name : </label>
+                             {{ $tenants->parent_name }}
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Parent Nnumber</label>
-                        <input type="text" name="parent_number" class="form-control" value="{{old('parent_number')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <label for="exampleInputEmail1"> Parent Nnumber : </label>
+                             {{ $tenants->parent_number }}
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Total Resident</label>
-                        <input type="text" name="total_resident" class="form-control" value="{{old('total_resident')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <label for="exampleInputEmail1">Total Resident : </label>
+                             {{ $tenants->total_resident }}
                     </div>
                 </div>   
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Fee</label>
-                        <input type="text" name="fee" class="form-control" value="{{old('fee')}}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <label for="exampleInputEmail1"> Fee : </label>
+                             {{ $tenants->fee }}
                     </div>
                 </div>   
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Image</label>
-                        <input type="file" name="image" class="d-block" value="{{old('image')}}" id="exampleInputEmail1" placeholder="Enter Name">
-                    </div>
-                </div>   
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Image Preview</label>
-                    </div>
-                </div>   
+                  
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tenant Description</label>
-                        <textarea class="ckeditor form-control" name="description"> {!! old('description')!!}</textarea>                  
+                        <label for="exampleInputEmail1"> Description : </label>
+                        <p>{!! $tenants->description !!}</p>
                       </div>
                 </div>   
-                <div class="form-group">
-                    <input type="hidden" class="form-control" name="room_id" value="{{$room->id}}" id="exampleInputPassword1" placeholder="">
-                </div>
             </div>
         </div>
-
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        </form>
-     </div>
-   
+     </div> 
 @endsection
 
 @section('script')

@@ -11,48 +11,46 @@
 <div class="card">
       @include('renter.layouts.error')
     <div class="card-body">
-        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Add Room
-        </button>
     <table id="table1" class="table table-bordered table-striped">
             <thead>
                 <tr>
                 <th>#</th>
-                <th>Room Name</th>
-                <th>Room Status</th>
-                <th>Created Date</th>
+                <th>Image</th>
+                <th>Tenant Name</th>
+                <th>Tenant Phone</th>
+                <th>Tenant Fees</th>
+                <th>Total Resident </th>
+                <th>Joined Date</th>
                 <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-               @foreach ($rooms as $room)
+               @foreach ($tenants as $tenant)
                <tr>
                  <td>{{$loop->iteration}}</td>
-                 <td>{!! Str::ucfirst($room->name) !!}</td>
-                 @if($room->status == 0)
-                 <td><span class="text-primary"> Availbale</span></td>
-                 @else
-                 <td><span class="text-info"> Reserved</span></td>
-                 @endif
-                 <td class="text-success">{{ $room->created_at->format('Y-M-d') }} </td>
-                 <td>
-                  <div class="row justify-contnet-evenly">
-                  <div class="col-md-2 ">
-                  @if($room->status == 0)
-                      <form action="{{route('renter.tenant.create')}}" method="get">
-                          @csrf
-                          <input type="hidden" name="data_id" value="{{$room->id}}" id="">
-                          <button type="submit" class="btn" data-toggle="tooltip" title='Add Tenant'><i class="fa fa-plus text-success"></i></button>
-                    </form>
-                  @endif    
-                  </div>  
-                  <div class="col-md-2 ">
-                      <a href="{{route('renter.room.edit',$room->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Room'><i class="fa fa-edit text-primary"></i></a>
+                 @if($tenant->tenantimage != '' )
+                <td><img src="{{asset('tenant/uploads/'.$tenant->tenantimage->image_path)}}" width="100rem" height="100rem" alt="image not found"></td>
+                @else
+                <td><img src="{{asset('tenant/default/dumy.png')}}" width="100rem" height="100rem" alt="image not found"></td>
+                @endif
+                 <td>{{$tenant->name}}</td>
+                 <td>{{$tenant->phone}}</td>
+                 <td>{{$tenant->fee}}</td>
+                 <td>{{$tenant->total_resident}}</td>
+                 <td class="text-success">{{ $tenant->created_at->format('Y-M-d') }} </td>
+                 <td col-2>
+                  <div class="row ">
+                  <div class="col-md-3 ">
+                      <a href="{{route('renter.tenant.show',$tenant->slug)}}" class=" nav-link" data-toggle="tooltip" title='View Detail'><i class="fa fa-eye text-success"></i></a>
+                  </div>
+                  <div class="col-md-3">
+                      <a href="{{route('renter.tenant.edit',$tenant->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Tenant'><i class="fa fa-edit text-primary"></i></a>
                   </div>
                   <div class="col-md-2 ">
-                      <form action="{{route('renter.room.create')}}" method="get">
+                      <form action="{{route('renter.tenant.destroy',$tenant->slug)}}" method="post">
+                         @method('delete')
                           @csrf
-                          <input type="hidden" name="data_id" value="{{$room->slug}}" id="">
+                          <input type="hidden" name="data_id" value="{{$tenant->slug}}">
                           <button type="submit" class=" btn show_confirm" data-toggle="tooltip" title='Delete'><i class="fa fa-trash text-danger"></i></button>
                     </form>
                   </div>      

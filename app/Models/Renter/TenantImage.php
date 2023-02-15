@@ -9,7 +9,6 @@ class TenantImage extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
         'user_id',
         'tenant_id',
         'image_path',
