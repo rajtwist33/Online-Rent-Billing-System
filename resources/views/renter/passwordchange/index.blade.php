@@ -16,20 +16,8 @@
             @csrf
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
-                        <input type="text" name="name" class="form-control" value="{{$demo->name}}" id="exampleInputEmail1" placeholder="Enter Name">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" name="email" value="{{$demo->email}}" id="exampleInputEmail1" placeholder="Enter email">
-                    </div>
-                </div>
-              
-                <div class="col-md-4">
+                
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="exampleInputPassword1">User Id</label>
                         <input type="text" class="form-control" name="account" value="{{$demo->account}}" id="exampleInputPassword1" placeholder="Enter User Id">

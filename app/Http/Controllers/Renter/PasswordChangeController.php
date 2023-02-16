@@ -22,7 +22,7 @@ class PasswordChangeController extends Controller
     {
         $org_name = Setting::first();
         $data =RenterImage::where('user_id',Auth::user()->id)->first();  
-        $demo = User::where('role_id',1)->first();
+        $demo = User::where('role_id',2)->Where('id',Auth::user()->id)->first();
         $title = 'ChangePassword';
         return view('renter.passwordchange.index',compact('title','data','org_name','demo'));
     }
@@ -53,16 +53,15 @@ class PasswordChangeController extends Controller
         ]);
   
         User::updateOrCreate(
-            ['id' => $request->data_id],
+            ['id' => Auth::user()->id],
            [
-            'name'=>$request->name,
             'account'=>$request->account,
             'password'=>Hash::make($request->new_pass),
-            'role_id'=>1,
+            'role_id'=>2,
            ]
         );
     
-        return redirect()->route('renter.dashboard.index')->with('success',' Password Changed Suceesfully !');
+        return redirect()->route('login')->with('success',' Password Changed Suceesfully !');
     
     }
 

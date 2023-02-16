@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
@@ -51,16 +52,15 @@ class PasswordController extends Controller
         ]);
   
         User::updateOrCreate(
-            ['id' => $request->data_id],
-           [
-            'name'=>$request->name,
+            ['id' =>Auth::user()->id],
+           [ 
             'account'=>$request->account,
             'password'=>Hash::make($request->new_pass),
             'role_id'=>1,
            ]
         );
     
-        return redirect()->route('developer.dashboard.index')->with('success','Developer Password Changed Suceesfully !');
+        return redirect()->route('login')->with('success','Developer Password Changed Suceesfully !');
     }
 
     /**
