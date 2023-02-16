@@ -85,6 +85,8 @@
                 </div>   
                 <div class="form-group">
                     <input type="hidden" class="form-control" name="room_id" value="{{$room->id}}" id="exampleInputPassword1" placeholder="">
+                    <input type="hidden" class="form-control" name="old_room" value="" id="exampleInputPassword1" readonly>
+
                 </div>
             </div>
         </div>

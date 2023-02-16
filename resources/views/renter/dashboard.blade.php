@@ -5,26 +5,27 @@
       @include('renter.layouts.success')
       <div class="row">
       <div class="col-12 col-sm-6 col-md-3">
-       <a href="#" class="text-dark">
+       <a href="{{route('renter.tenant.index')}}" class="text-dark">
           <div class="info-box mb-3">
             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">New Members</span>
-              <span class="info-box-number">12</span>
+              <span class="info-box-number">{{ $tenant }}</span>
             </div>
           </div>
         </a>
         </div>
 
         <div class="col-12 col-sm-6 col-md-3">
+        <a href="{{route('renter.room.index')}}" class="text-dark">
           <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
+            <span class="info-box-icon bg-danger elevation-1"> <i class="nav-icon fas fa-bed"></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">Likes</span>
-              <span class="info-box-number">41,410</span>
+              <span class="info-box-text">Rooms</span>
+              <span class="info-box-number">{{ $room }}</span>
             </div>
           </div>
+        </a>
         </div>
         <div class="clearfix hidden-md-up"></div>
         <div class="col-12 col-sm-6 col-md-3">

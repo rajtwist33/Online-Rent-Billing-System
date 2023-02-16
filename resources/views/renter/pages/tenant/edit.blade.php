@@ -103,8 +103,8 @@
                 </div>     
             </div>
         </div>
-        <input type="hidden" class="form-control" name="data_id" value="{{$tenants->id}}" id="exampleInputPassword1" placeholder="">
-        <input type="hidden" class="form-control" name="old_room" value="{{$tenants->tenanthasroom->id}}" id="exampleInputPassword1" placeholder="">
+        <input type="hidden" class="form-control" name="data_id" value="{{$tenants->id}}" id="exampleInputPassword1" readonly>
+        <input type="hidden" class="form-control" name="old_room" value="{{$tenants->tenanthasroom->id}}" id="exampleInputPassword1" readonly>
 
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>

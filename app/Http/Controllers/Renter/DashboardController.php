@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Renter;
 
 
 use App\Models\Setting;
+use App\Models\Renter\Room;
 use App\Models\RenterImage;
 use Illuminate\Http\Request;
+use App\Models\Renter\Tenant;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +24,9 @@ class DashboardController extends Controller
         $org_name = Setting::first();
         $data =RenterImage::where('user_id',Auth::user()->id)->first();  
         $title = 'Dashboard';
-        return view('renter.dashboard',compact('title','org_name','data'));
+        $tenant =Tenant::Where('user_id',Auth::user()->id)->count();
+        $room = Room::Where('user_id',Auth::user()->id)->count();
+        return view('renter.dashboard',compact('title','org_name','data','tenant','room'));
     }
 
     /**

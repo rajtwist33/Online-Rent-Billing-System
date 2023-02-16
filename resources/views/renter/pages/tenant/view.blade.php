@@ -19,8 +19,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                    
+                    @if($tenants->tenantimage != '')
                         <img src="{{asset('tenant/uploads/'.$tenants->tenantimage->image_path)}}" width="100rem" height="100rem" alt="image not found">   
+                   @endif
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -77,8 +78,8 @@
                 </div>   
                   
                 <div class="col-md-12">
+                <label for="exampleInputEmail1"> Description : </label>
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> Description : </label>
                         <p>{!! $tenants->description !!}</p>
                       </div>
                 </div>   

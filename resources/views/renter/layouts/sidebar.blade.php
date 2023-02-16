@@ -4,7 +4,7 @@
     @if($org_name != null && $org_name->image != null)
       <img src="{{asset('settings/uploads/'.$org_name->image)}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     @else
-      <img src="{{asset('layouts/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <i class="fas fa-feather-alt brand-image img-circle elevation-3 m-2" style="opacity: .8"></i>
     @endif  
       <span class="brand-text font-weight-light {{ request()->routeIs('renter.dashboard.index') ? 'text-success' : '' }}">{{ $org_name == null ? "ORBS" : $org_name->organization_name  }}</span>
     </a>
@@ -26,7 +26,7 @@
           <li class="nav-header">General</li>
           <li class="nav-item ">
             <a href="{{route('renter.profile.index')}}" class=" nav-link {{ request()->routeIs('renter.profile.index')   ? 'active' : '' }}">
-              <i class="nav-icon fas fa-calendar-alt"></i>
+            <i class="nav-icon fas fa-user-alt"></i>
               <p>
                  Profile
               </p>
@@ -34,7 +34,7 @@
           </li>
           <li class="nav-item ">
             <a href="{{route('renter.room.index')}}" class=" nav-link {{ request()->routeIs('renter.room.index') || request()->routeIs('renter.room.edit') || request()->routeIs('renter.tenant.create')? 'active' : '' }}">
-              <i class="nav-icon fas fa-calendar-alt"></i>
+              <i class="nav-icon fas fa-bed"></i>
               <p>
                  Room
               </p>
@@ -42,7 +42,7 @@
           </li>  
           <li class="nav-item ">
             <a href="{{route('renter.tenant.index')}}" class=" nav-link {{ request()->routeIs('renter.tenant.index') || request()->routeIs('renter.tenant.show') || request()->routeIs('renter.tenant.edit') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-calendar-alt"></i>
+              <i class="nav-icon fas fa-shapes"></i>
               <p>
                  Tenant
               </p>

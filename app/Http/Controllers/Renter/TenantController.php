@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Renter;
 
+use Image;
 use App\Models\Setting;
 use App\Models\Renter\Room;
 use App\Models\RenterImage;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Renter\Tenant;
 use App\Models\Renter\TenantImage;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Image;
+
 class TenantController extends Controller
 {
     /**
@@ -51,6 +53,7 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'name'=>'required',
             'address'=>'required',
@@ -60,7 +63,11 @@ class TenantController extends Controller
             'total_resident'=>'required',
             'occupation'=>'required',     
        ]);
-
+       if (!empty($request->image)) {
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:3048',
+        ]);
+        }
        $tenant = Tenant::updateOrcreate(
             [ 'id'=>$request->data_id
             ],
@@ -81,26 +88,37 @@ class TenantController extends Controller
             ]
        );
 
-       Room::Where('id',$request->room_id)->Where('user_id',Auth::user()->id)->update([
-            'status'=>1,
-       ]);
-     
        if($request->old_room != ''){
         Room::Where('id',$request->old_room)->Where('user_id',Auth::user()->id)->update(
             [
                 'status'=>0,
             ]
             );
+        Room::Where('id',$request->room_id)->Where('user_id',Auth::user()->id)->update(
+            [
+                'status'=>1,
+            ]
+            );
+
+         }
+         else{
+            Room::Where('id',$request->room_id)->Where('user_id',Auth::user()->id)->update([
+                'status'=>1,
+           ]);
          }
 
        if (!empty($request->image)) {
-        $this->validate($request, [
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:3048',
-        ]);
+        
+        $check = Tenant::with('tenantimage')->Where('id',$request->data_id)->Where('user_id',Auth::user()->id)->first();
+        if($request->old_room != ''){
+            unlink(public_path('tenant/uploads/'.$check->tenantimage->image_path));
+        }
+        else{
             $data =TenantImage::Where('tenant_id',$request->data_id)->Where('user_id',Auth::user()->id)->first();
             if( (!empty($data) && $data->image_path != '')){ 
                 unlink(public_path('tenant/uploads/'.$data->image_path));
             }
+        }
             $file = Image::make($request->file('image'));
             $extension = time().'-'.$request->file('image')->getClientOriginalName();
             $filename = time().'.' . $extension;
@@ -126,7 +144,7 @@ class TenantController extends Controller
        else{
         return redirect()->route('renter.tenant.index')->with('success','New Tenant Added into the Room.');
 
-       }
+       }   
 
     }
 
@@ -186,7 +204,7 @@ class TenantController extends Controller
         if(($data->tenantimage != '')){ 
             unlink(public_path('tenant/uploads/'.$data->tenantimage->image_path));
         }
-        $demo = Room::Where('slug',$data->tenanthasroom->slug)->update(
+         Room::Where('slug',$data->tenanthasroom->slug)->Where('user_id',Auth::user()->id)->update(
             [
                 'status'=>0,
             ]
