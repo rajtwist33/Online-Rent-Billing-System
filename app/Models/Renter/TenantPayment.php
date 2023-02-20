@@ -18,4 +18,11 @@ class TenantPayment extends Model
         'advance',
         'slug',
     ];
-}
+
+    public function tenant(){
+        return $this->hasOne(Tenant::class,'id','tenant_id');
+    }
+
+  
+    }
+

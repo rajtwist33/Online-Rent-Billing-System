@@ -41,10 +41,18 @@
             </a>
           </li>  
           <li class="nav-item ">
-            <a href="{{route('renter.tenant.index')}}" class=" nav-link {{ request()->routeIs('renter.tenant.index') || request()->routeIs('renter.tenant.show') || request()->routeIs('renter.tenant.edit') ? 'active' : '' }}">
+            <a href="{{route('renter.tenant.index')}}" class=" nav-link {{ request()->routeIs('renter.tenant.index') || request()->routeIs('renter.payment.create') || request()->routeIs('renter.tenant.show') || request()->routeIs('renter.tenant.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-shapes"></i>
               <p>
                  Tenant
+              </p>
+            </a>
+          </li>  
+          <li class="nav-item ">
+            <a href="{{route('renter.payment.index')}}" class=" nav-link {{ request()->routeIs('renter.payment.index')  || request()->routeIs('renter.payment.edit') || request()->routeIs('renter.payment.show') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-shapes"></i>
+              <p>
+                 Tenant Payments
               </p>
             </a>
           </li>  

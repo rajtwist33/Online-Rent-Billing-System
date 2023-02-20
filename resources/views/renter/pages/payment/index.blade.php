@@ -15,62 +15,41 @@
             <thead>
                 <tr>
                 <th>#</th>
-                <th>Image</th>
-                <th>Tenant Name</th>
-                <th>Tenant Phone</th>
-                <th>Tenant Fees</th>
-                <th>Total Resident </th>
-                <th>Joined Date</th>
-                <th>Payment</th>
+                <th> Name</th>
+                <th>Fee</th>
+                <th>Paid Amount</th>
+                <th>Dues Amount</th>
+                <th>Advance Amount</th>
+                <th>Paid Date</th>
                 <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-               @foreach ($tenants as $tenant)
+               @foreach ($payments as $payment)
                <tr>
                  <td>{{$loop->iteration}}</td>
-                 @if($tenant->tenantimage != '' )
-                <td><img src="{{asset('tenant/uploads/'.$tenant->tenantimage->image_path)}}" width="100rem" height="100rem" alt="image not found"></td>
-                @else
-                <td><img src="{{asset('tenant/default/dumy.png')}}" width="100rem" height="100rem" alt="image not found"></td>
-                @endif
-                 <td>{{$tenant->name}}</td>
-                 <td>{{$tenant->phone}}</td>
-                 <td>{{$tenant->fee}}</td>
-                 <td>{{$tenant->total_resident}}</td>
-                 <td class="text-success">{{ $tenant->created_at->format('Y-M-d') }} </td>
-                 <td> 
-                    <form action="{{route('renter.payment.create')}}" method="get">
-                      @csrf
-                      <input type="hidden" readonly  name="tenant_id" value="{{$tenant->id}}">
-                    <button type="submit" class="btn btn-outline-warning" data-toggle="tooltip" title='Click For Payment'><i class="	fas fa-money-check text-danger"></i></button>
-                    </form>
-                 </td>
-                 <td col-2>
-                  <div class="row ">
-                  <div class="col-md-3 ">
-                      <a href="{{route('renter.tenant.show',$tenant->slug)}}" class=" nav-link" data-toggle="tooltip" title='View Detail'><i class="fa fa-eye text-success"></i></a>
-                  </div>
-                  <div class="col-md-3">
-                      <a href="{{route('renter.tenant.edit',$tenant->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Tenant'><i class="fa fa-edit text-primary"></i></a>
-                  </div>
-                  <div class="col-md-2 ">
-                      <form action="{{route('renter.tenant.destroy',$tenant->slug)}}" method="post">
-                         @method('delete')
-                          @csrf
-                          <input type="hidden" name="data_id" value="{{$tenant->slug}}">
-                          <button type="submit" class=" btn show_confirm" data-toggle="tooltip" title='Delete'><i class="fa fa-trash text-danger"></i></button>
-                    </form>
-                  </div>      
-                  </div>  
-                  </td>
+                 <td>{!! Str::ucfirst($payment->tenant->name) !!}</td>
+                <td>{{ $payment->tenant->fee }}</td>               
+                <td class="text-success">{{ $payment->paid_amount }}</td>               
+                <td class="text-warning">{{ $payment->dues }}</td>               
+                <td class="text-info">{{ $payment->advance }}</td>               
+                <td> {{\Carbon\Carbon::parse($payment->paid_date)->format('Y-M-d g:i:s A')}}</td>               
+                     
+                <td>
+                  @if($payment->paid_amount == $payment->tenant->fee)
+                  <span class="btn btn-success">Paid</span>
+                  @else
+                <a href="{{route('renter.payment.edit',$payment->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Payment'><i class="fa fa-edit text-primary"></i></a>
+                  @endif
+                </td>               
+            
                 </tr>
                  @endforeach
             </tbody>
         </table>
+   
     </div>
 </div>
-@include('renter.pages.room.create_renter_modal')
 @endsection
 
 @section('script')
