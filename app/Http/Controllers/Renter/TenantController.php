@@ -149,28 +149,29 @@ class TenantController extends Controller
                 
                 }
             }
+            else
+            {
+              
+                $file = Image::make($request->file('image'));
+                $extension = time().'-'.$request->file('image')->getClientOriginalName();
+                $filename = time().'.' . $extension;
+                $destinationPathThumbnail = public_path('tenant/uploads/');
+                $file->resize(100,100);
+                $file->save($destinationPathThumbnail .$filename);
+              
+                     TenantImage::create(
+                         [
+                            'user_id'=>Auth::user()->id,
+                            'tenant_id' => $tenant->id,
+                            'image_path' => $filename,
+                            'slug'=>rand(1,9999),
+                         ]
+                     );        
+                
+            }
         }
     
-        else
-        {
-          
-            $file = Image::make($request->file('image'));
-            $extension = time().'-'.$request->file('image')->getClientOriginalName();
-            $filename = time().'.' . $extension;
-            $destinationPathThumbnail = public_path('tenant/uploads/');
-            $file->resize(100,100);
-            $file->save($destinationPathThumbnail .$filename);
-          
-                 TenantImage::create(
-                     [
-                        'user_id'=>Auth::user()->id,
-                        'tenant_id' => $tenant->id,
-                        'image_path' => $filename,
-                        'slug'=>rand(1,9999),
-                     ]
-                 );        
-            
-        }
+       
        if($request->data_id){
         return redirect()->route('renter.tenant.index')->with('success','Tenant Information Update.');
        }
