@@ -41,6 +41,14 @@
             </a>
           </li>  
           <li class="nav-item ">
+            <a href="{{route('renter.electricitybill.index')}}" class=" nav-link {{ request()->routeIs('renter.electricitybill.index') || request()->routeIs('renter.electricitybill.edit') || request()->routeIs('renter.electricitybill.create')? 'active' : '' }}">
+              <i class="nav-icon fas fa-bolt"></i>
+              <p>
+                 Electricity Bill
+              </p>
+            </a>
+          </li>  
+          <li class="nav-item ">
             <a href="{{route('renter.tenant.index')}}" class=" nav-link {{ request()->routeIs('renter.tenant.index') || request()->routeIs('renter.payment.create') || request()->routeIs('renter.tenant.show') || request()->routeIs('renter.tenant.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-shapes"></i>
               <p>

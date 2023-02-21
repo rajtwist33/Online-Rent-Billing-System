@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Developer\DashboardController;
-use App\Http\Controllers\Developer\DeleteController;
 use App\Http\Controllers\Developer\PasswordController;
 use App\Http\Controllers\Developer\RenterController;
 use App\Http\Controllers\Developer\SettingController;
 use App\Http\Controllers\Developer\TenantOwnerController;
 use App\Http\Controllers\Renter\DashboardController as RenterDashboardController;
+use App\Http\Controllers\Renter\ElectricityBillController;
 use App\Http\Controllers\Renter\PasswordChangeController;
 use App\Http\Controllers\Renter\PaymentController;
 use App\Http\Controllers\Renter\ProfileController;
@@ -15,17 +15,6 @@ use App\Http\Controllers\Renter\RoomController;
 use App\Http\Controllers\Renter\TenantController;
 use Illuminate\Support\Facades\Route;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('home');
@@ -48,5 +37,6 @@ Route::group(['prefix'=>'renter','as'=>'renter.','middleware' =>(['auth', 'user-
         Route::resource('/tenant',TenantController::class);
         Route::resource('/change_password',PasswordChangeController::class);
         Route::resource('/payment',PaymentController::class);
+        Route::resource('/electricitybill',ElectricityBillController::class);
 });
 
