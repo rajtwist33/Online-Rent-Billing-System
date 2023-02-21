@@ -106,11 +106,11 @@ class TenantController extends Controller
                 'status'=>1,
            ]);
          }
-
+        
        if (!empty($request->image)) {
         
         $check = Tenant::with('tenantimage')->Where('id',$request->data_id)->Where('user_id',Auth::user()->id)->first();
-        if($request->old_room != ''){
+        if($request->old_room != ''  ){
             unlink(public_path('tenant/uploads/'.$check->tenantimage->image_path));
         }
         else{
@@ -133,7 +133,7 @@ class TenantController extends Controller
                 [
                     'user_id'=>Auth::user()->id,
                     'tenant_id' => $tenant->id,
-                    'image_path' => $filename,
+                    'image_path' => $filename ,
                     'slug'=>rand(1,9999),
                 ]
         );
