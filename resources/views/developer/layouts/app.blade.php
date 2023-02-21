@@ -22,9 +22,9 @@
           <h1 class="m-0">{{ $title }}</h1>
         </div>
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('developer.dashboard.index')}}">Home</a></li>
-            <li class="breadcrumb-item active">{{ $title }}</li>
+          <ol class="breadcrumb float-sm-right ">
+            <li class="breadcrumb-item d-none d-lg-block"><a href="{{route('developer.dashboard.index')}}">Home</a></li>
+            <li class="breadcrumb-item d-none d-lg-block active">{{ $title }}</li>
           </ol>
         </div>
       </div>

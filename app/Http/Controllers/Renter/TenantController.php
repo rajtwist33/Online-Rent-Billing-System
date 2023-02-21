@@ -106,19 +106,17 @@ class TenantController extends Controller
                 'status'=>1,
            ]);
          }
-        
-       if (!empty($request->image)) {
-        
-        $check = Tenant::with('tenantimage')->Where('id',$request->data_id)->Where('user_id',Auth::user()->id)->first();
-        if($request->old_room != ''  ){
-            unlink(public_path('tenant/uploads/'.$check->tenantimage->image_path));
+    
+       if (!empty($request->image)) 
+       {
+        if($request->data_id != '')
+        { 
+         $check = Tenant::with('tenantimage')->Where('id',$request->data_id)->Where('user_id',Auth::user()->id)->first();
+        if(!empty($check->tenantimage))
+        {
+         unlink(public_path('tenant/uploads/'.$check->tenantimage->image_path));
         }
-        else{
-            $data =TenantImage::Where('tenant_id',$request->data_id)->Where('user_id',Auth::user()->id)->first();
-            if( (!empty($data) && $data->image_path != '')){ 
-                unlink(public_path('tenant/uploads/'.$data->image_path));
-            }
-        }
+       
             $file = Image::make($request->file('image'));
             $extension = time().'-'.$request->file('image')->getClientOriginalName();
             $filename = time().'.' . $extension;
@@ -126,17 +124,52 @@ class TenantController extends Controller
             $file->resize(100,100);
             $file->save($destinationPathThumbnail .$filename);
           
-            TenantImage::updateOrCreate(
-                [
-                    'user_id'=>$request->data_id,
-                ],
-                [
-                    'user_id'=>Auth::user()->id,
-                    'tenant_id' => $tenant->id,
-                    'image_path' => $filename ,
-                    'slug'=>rand(1,9999),
-                ]
-        );
+           $check_image =TenantImage::Where('id',$request->data_id)->Where('user_id',Auth::user()->id)->first();
+                if(!empty($check_image))
+                {
+                    TenantImage::Where('id',$request->data_id)->Where('user_id',Auth::user()->id)->update(
+                        [
+                            'user_id'=>Auth::user()->id,
+                            'tenant_id' => $request->data_id,
+                            'image_path' => $filename,
+                            'slug'=>rand(1,9999),
+                        ]
+                    );    
+                
+                }
+                else{
+                    TenantImage::create(
+                        [
+                            'user_id'=>Auth::user()->id,
+                            'tenant_id' => $request->data_id,
+                            'image_path' => $filename,
+                            'slug'=>rand(1,9999),
+                        ]
+                    );    
+                
+                }
+            }
+        }
+    
+        else
+        {
+          
+            $file = Image::make($request->file('image'));
+            $extension = time().'-'.$request->file('image')->getClientOriginalName();
+            $filename = time().'.' . $extension;
+            $destinationPathThumbnail = public_path('tenant/uploads/');
+            $file->resize(100,100);
+            $file->save($destinationPathThumbnail .$filename);
+          
+                 TenantImage::create(
+                     [
+                        'user_id'=>Auth::user()->id,
+                        'tenant_id' => $tenant->id,
+                        'image_path' => $filename,
+                        'slug'=>rand(1,9999),
+                     ]
+                 );        
+            
         }
        if($request->data_id){
         return redirect()->route('renter.tenant.index')->with('success','Tenant Information Update.');
@@ -148,12 +181,7 @@ class TenantController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show( $tenant)
     {
         $org_name = Setting::first();
