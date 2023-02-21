@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{{asset('layouts/dist/css/adminlte.min.css')}}">
   @yield('style')
 </head>
-<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed {{Auth::user()->sidebar == 1 ? 'sidebar-collapse' : ''}}">
+<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed {{Auth::user()->sidebar == 1 ? 'sidebar-collapse ': ''}}">
 <div class="wrapper">
 @include('renter.layouts.header')
 @include('renter.layouts.sidebar')
