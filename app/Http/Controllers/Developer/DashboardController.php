@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -40,7 +41,17 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->sidebar == 1){
+            User::Where('id',Auth::user()->id)->update([
+                'sidebar'=>0,
+            ]);
+        }
+        else{
+            User::Where('id',Auth::user()->id)->update([
+                'sidebar'=>1,
+            ]);
+        }
+        return redirect()->back();
     }
 
     /**

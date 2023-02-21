@@ -4,7 +4,8 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-@endsection
+  <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+  @endsection
 @section('main-body')
 @include('renter.layouts.success')
 @include('renter.layouts.delete')
@@ -20,8 +21,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Room Name</label>
-                        <input type="text" name="room_name" class="form-control" value="{!! Str::ucfirst($room->name) !!}" id="exampleInputEmail1" placeholder="Enter Name">
+                        <input type="text"  name="room_name" class="form-control" value="{!! Str::ucfirst($room->name) !!}" id="exampleInputEmail1" placeholder="Enter Name">
                     </div>
+                    <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Description:</label>
+                    <textarea name="description"  id="editor1" rows="10" cols="80"> {!!$room->description!!}
+                    </textarea>
+                  </div>
                 </div>   
                 <div class="form-group">
                     <input type="hidden" class="form-control" name="data_id" value="{{$room->id}}" id="exampleInputPassword1" placeholder="Enter User Id">
@@ -76,6 +82,7 @@
   
 </script>
 <script>
+   CKEDITOR.replace( 'editor1' );
   $(function () {
     $("#table1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

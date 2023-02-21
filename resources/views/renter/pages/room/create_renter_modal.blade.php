@@ -17,6 +17,12 @@
             <label for="recipient-name" class="col-form-label">Room Name:</label>
             <input type="text" class="form-control" name="room_name" id="recipient-name">
           </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Description:</label>
+            <textarea name="description" id="editor1" rows="10" cols="80">
+            </textarea>
+          </div>
+
       </div>
       <div class="modal-footer">
         <button type="reset" class="btn btn-secondary" >Reset</button>

@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'password_name',
         'role_id',
+        'sidebar',
     ];
 
     Public function renterdetail(){

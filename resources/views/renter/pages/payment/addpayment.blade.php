@@ -65,9 +65,10 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
+                        <?php $today = date('Y-m-d H:i:s');?>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Paid Date</label>
-                                <input type="datetime-local" name="paid_date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <label for="exampleInputEmail1" class="form-label">Paying Date</label>
+                                <input type="datetime-local" name="paid_date" value="{{$today}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                 <input type="hidden" readonly name="tenant_id" value="{{$tenants->id}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
                         </div>

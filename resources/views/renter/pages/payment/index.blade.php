@@ -31,15 +31,24 @@
                  <td>{!! Str::ucfirst($payment->tenant->name) !!}</td>
                 <td>{{ $payment->tenant->fee }}</td>               
                 <td class="text-success">{{ $payment->paid_amount }}</td>               
-                <td class="text-warning">{{ $payment->dues }}</td>               
-                <td class="text-info">{{ $payment->advance }}</td>               
+                <td class="text-warning">{{ $payment->dues }}</td>  
+                     
+                <td class="text-info">  @if($payment->advance != '') 
+                  <form action="{{route('renter.payment.store')}}" method="post">
+                          @csrf
+                          {{ $payment->advance }}
+                          <input type="hidden" name="advance_payment" value="{{$payment->slug}}" id="">
+                          <button type="submit" class=" btn payment_conform" data-toggle="tooltip" title='Proceed To Pay'><i class="fas fa-check-circle text-info"></i></button>
+                    </form>  
+                @endif</td>               
+               
                 <td> {{\Carbon\Carbon::parse($payment->paid_date)->format('Y-M-d g:i:s A')}}</td>               
                      
                 <td>
                   @if($payment->paid_amount == $payment->tenant->fee)
                   <span class="btn btn-success">Paid</span>
                   @else
-                <a href="{{route('renter.payment.edit',$payment->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Payment'><i class="fa fa-edit text-primary"></i></a>
+                <a href="{{route('renter.payment.edit',$payment->slug)}}" class="btn btn-outline-warning nav-link" data-toggle="tooltip" title='Pay Dues'><i class="fas fa-dollar-sign btn-outline-primary"></i></a>
                   @endif
                 </td>               
             
@@ -78,6 +87,22 @@
           swal({
               title: `Are you sure you want to delete this record?`,
               text: "If you delete this, it will be gone forever.",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            }
+          });
+      });
+     $('.payment_conform').click(function(event) {
+          var form =  $(this).closest("form");
+          var name = $(this).data("name");
+          event.preventDefault();
+          swal({
+              title: `Are you sure you want to Clear Advance?`,
               icon: "warning",
               buttons: true,
               dangerMode: true,

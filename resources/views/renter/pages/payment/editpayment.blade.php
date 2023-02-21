@@ -43,6 +43,7 @@
                             </div>
                         </div>
                     </div>
+                 
                     @if($payments->dues != '')
                     <div class="col-md-6">
                         <div class="form-group">
@@ -53,12 +54,12 @@
                         </div>
                     </div>
                     @endif
-                   
+                    <?php $today = date('Y-m-d H:i:s');?>
                     <div class="col-md-12">
                         <div class="form-group">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Paid Date</label>
-                                <input type="datetime-local" name="paid_date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <label for="exampleInputEmail1" class="form-label">Paying Date</label>
+                                <input type="datetime-local" value="{{$today}}" name="paid_date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                 <input type="hidden" readonly name="tenant_id" value="{{$payments->tenant->id}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                 <input type="hidden" readonly name="data_id" value="{{$payments->id}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                 <input type="hidden" readonly name="tenant_fee" value="{{$payments->tenant->fee}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

@@ -1,7 +1,11 @@
 <nav class="main-header navbar navbar-expand navbar-dark">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <form action="{{route('developer.dashboard.store')}}" method="post">
+          @csrf
+            <input type="hidden" value="{{Auth::user()->sidebar}}" name="sidebar" id="">
+            <button type="submit"   class="btn text-light"><i class="fas fa-bars"></i></button>
+        </form>
       </li>
       
       <li class="nav-item d-none d-sm-inline-block">

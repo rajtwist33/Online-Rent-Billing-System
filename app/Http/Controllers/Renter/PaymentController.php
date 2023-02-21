@@ -49,7 +49,13 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-       
+     if($request->advance_payment != ''){
+        TenantPayment::Where('slug',$request->advance_payment)->Where('user_id',Auth::user()->id)
+        ->update([
+            'advance'=> null,
+        ]);
+        return redirect()->back()->with('success','Advance Amount Cleared.');
+     }
         $request->validate([
             'paid_amount'=>'required',
             'paid_date'=>'required',
@@ -78,8 +84,8 @@ class PaymentController extends Controller
                         'user_id' =>Auth::user()->id,
                         'paid_date'=>$request->paid_date,
                         'paid_amount' =>$paid_amount,
-                        'dues'=>'',
-                        'advance' =>'',
+                        'dues'=>null,
+                        'advance' =>null,
                         'slug'=>rand(1,9999),
                         ],
                     );
@@ -111,7 +117,7 @@ class PaymentController extends Controller
                         'user_id' =>Auth::user()->id,
                         'paid_date'=>$request->paid_date,
                         'paid_amount' =>$paid_amount,
-                        'dues'=>'',
+                        'dues'=>null,
                         'advance' =>$advance,
                         'slug'=>rand(1,9999),
                         ],

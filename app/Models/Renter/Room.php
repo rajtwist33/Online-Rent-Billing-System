@@ -12,6 +12,7 @@ class Room extends Model
         'name',
         'user_id',
         'status',
+        'description',
         'slug',
     ];
 }

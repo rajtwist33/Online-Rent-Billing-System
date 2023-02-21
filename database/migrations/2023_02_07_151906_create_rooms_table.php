@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-           $table->boolean('status')->default('0')->comment('0:available , 1:reserved');
+            $table->boolean('status')->default('0')->comment('0:available , 1:reserved');
+            $table->text('description');
             $table->string('slug');
             $table->timestamps();
         });

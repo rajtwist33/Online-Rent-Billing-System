@@ -4,7 +4,8 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-@endsection
+  <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+  @endsection
 @section('main-body')
 @include('renter.layouts.success')
 @include('renter.layouts.delete')
@@ -106,6 +107,7 @@
   
 </script>
 <script>
+    CKEDITOR.replace( 'editor1' );
   $(function () {
     $("#table1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

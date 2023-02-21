@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('password_name');
             $table->string('password');
             $table->rememberToken();
+            $table->boolean('sidebar')->default('0')->comment('1:sidebar_Active,0:sidebar_Inactive');
             $table->timestamps();
         });
     }

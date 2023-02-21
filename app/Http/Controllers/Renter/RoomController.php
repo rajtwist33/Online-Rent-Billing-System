@@ -46,13 +46,21 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        
-       $request->validate([
-            'room_name'=>'required',
-       ]);
+       if($request->data_id == '')
+       { 
+            $request->validate([
+                    'room_name'=>'required',
+            ]);
+        }
+       if($request->data_id != '')
+       { 
+            $request->validate([
+                  
+            ]);
+        }
        
     $check = Room::where('user_id',Auth::user()->id)->Where('name',$request->room_name)->first();
-  
+    $check_discription = Room::where('user_id',Auth::user()->id)->Where('name',$request->description)->first();
     if($check == null)
         {
             Room::updateOrCreate(
@@ -60,18 +68,40 @@ class RoomController extends Controller
                 [
                     'name' => Str::lower($request->room_name),
                     'user_id'=>Auth::user()->id,
+                    'description'=>$request->description,
+                    'slug' => rand(1,9999),
+                ]
+           );
+
+          
+           if($request->data_id != ''){
+            return redirect()->route('renter.room.index')->with('success',' Room Name Updated .');
+           }
+           return redirect()->back()->with('success','New Room Created .');
+        } 
+        else if($check != null && $check_discription !== null )
+        {
+            return redirect()->back()->with('delete','Room name has already Exist.');
+        }
+       
+       
+        if($check_discription == null)
+        {
+        
+            Room::updateOrCreate(
+                ['id'=>$request->data_id],
+                [
+                    'user_id'=>Auth::user()->id,
+                    'description'=>$request->description,
                     'slug' => rand(1,9999),
                 ]
            );
            if($request->data_id != ''){
             return redirect()->route('renter.room.index')->with('success',' Room Name Updated .');
            }
-           return redirect()->back()->with('success','New Room Created .');
-        } 
-        else
-        {
-            return redirect()->back()->with('delete','Room name has already Exist.');
         }
+       
+
        
     }
 
