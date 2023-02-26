@@ -21,7 +21,8 @@
                 <th>Tenant Fees</th>
                 <th>Total Resident </th>
                 <th>Joined Date</th>
-                <th>Payment</th>
+                <th>Rent Payment</th>
+                <th>Electricity Payment</th>
                 <th>Action</th>
                 </tr>
             </thead>
@@ -44,6 +45,13 @@
                       @csrf
                       <input type="hidden" readonly  name="tenant_id" value="{{$tenant->id}}">
                     <button type="submit" class="btn btn-outline-warning" data-toggle="tooltip" title='Click For Payment'><i class="	fas fa-money-check text-danger"></i></button>
+                    </form>
+                 </td>
+                 <td> 
+                    <form action="{{route('renter.electricitybill_payment.create')}}" method="get">
+                      @csrf
+                      <input type="hidden" readonly  name="tenant_id" value="{{$tenant->id}}">
+                    <button type="submit" class="btn btn-outline-warning" data-toggle="tooltip" title='Click For Eelectricity Payment'><i class="	fas fa-money-check text-danger"></i></button>
                     </form>
                  </td>
                  <td col-2>

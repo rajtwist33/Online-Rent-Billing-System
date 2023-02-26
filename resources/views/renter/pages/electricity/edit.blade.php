@@ -33,6 +33,10 @@
                         <label for="recipient-name" class="col-form-label">Opening Unit:</label>
                         <input type="number" min="0" oninput="validity.valid||(value='');" value="{{$electricity->opening_unit}}" class="form-control" name="opening_unit">
                     </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Set Price Per Unit:</label>
+                      <input type="number" min="1" oninput="validity.valid||(value='');" class="form-control" name="set_price" value="{{$electricity->set_unit_price}}">
+                    </div>
                 </div>   
                 <div class="form-group">
                     <input type="hidden" class="form-control" name="data_id" value="{{$electricity->id}}" id="exampleInputPassword1" placeholder="Enter User Id">

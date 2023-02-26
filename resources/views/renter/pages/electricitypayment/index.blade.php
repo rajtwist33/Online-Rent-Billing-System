@@ -19,36 +19,20 @@
             <thead>
                 <tr>
                 <th>#</th>
-                <th>Room Name</th>
-                <th>Opening Unit</th>
-                <th> Unit Price</th>
-                <th>Created Date</th>
+                <th>Name</th>
+                <th>Room Id</th>
                 <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-               @foreach ($electricity as $electricity)
+               @foreach ($tenants as $tenant)
                <tr>
                  <td>{{$loop->iteration}}</td>
-                 <td> {!! Str::ucfirst($electricity->room->name) !!}</td>
-                 <td>{{$electricity->opening_unit}} <span class="text-info">Units</span></td>
-                 <td class="text-bold"> Rs.{{ $electricity->set_unit_price }} </td>
-                 <td class="text-success">{{ $electricity->created_at->format('Y-M-d') }} </td>
-                 <td col-2>
-                  <div class="row ">
-                  <div class="col-md-3">
-                      <a href="{{route('renter.electricitybill.edit',$electricity->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Electricity Unit'><i class="fa fa-edit text-primary"></i></a>
-                  </div>
-                  <div class="col-md-2 ">
-                      <form action="{{route('renter.electricitybill.destroy',$electricity->slug)}}" method="post">
-                         @method('delete')
-                          @csrf
-                          
-                          <button type="submit" class=" btn show_confirm" data-toggle="tooltip" title='Delete'><i class="fa fa-trash text-danger"></i></button>
-                    </form>
-                  </div>      
-                  </div>  
-                  </td>
+                 <td> {!! Str::ucfirst($tenant->name) !!}</td>
+                 <td>{!! Str::ucfirst($tenant->tenanthasroom->name) !!}</td>
+                <td>
+                    <a href="{{ route('renter.electricitybill_payment.show',$tenant->room_id) }}" class="btn btn-primary">View Payments</a>
+                </td>
                 </tr>
                  @endforeach
             </tbody>

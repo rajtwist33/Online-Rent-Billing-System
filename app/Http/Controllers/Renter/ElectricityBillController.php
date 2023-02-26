@@ -55,6 +55,7 @@ class ElectricityBillController extends Controller
                 'room_id'=>$request->room_id,
                 'user_id'=>Auth::user()->id,
                 'opening_unit'=>$request->opening_unit,
+                'set_unit_price'=>$request->set_price,
                 'slug'=>rand(1,9999),
             ]
             );

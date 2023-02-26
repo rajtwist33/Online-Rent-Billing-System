@@ -46,20 +46,12 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-       if($request->data_id == '')
-       { 
-            $request->validate([
-                    'room_name'=>'required',
-            ]);
-        }
-       if($request->data_id != '')
-       { 
-            $request->validate([
-                  
-            ]);
-        }
-       
+     
+          
     $check = Room::where('user_id',Auth::user()->id)->Where('name',$request->room_name)->first();
+    if($check){
+        return back()->with('delete','Room Name has Already Been Taken.');
+    }
     $check_discription = Room::where('user_id',Auth::user()->id)->Where('name',$request->description)->first();
     if($check == null)
         {

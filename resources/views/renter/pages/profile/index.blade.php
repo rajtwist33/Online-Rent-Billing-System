@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-md-6">     
                 <label for="formFile" class="form-label">Upload Image</label>
-                    <input class="form-control " name="image" type="file" id="formFile" >     
+                    <input class=" " name="image" type="file" id="formFile" >     
                 </div>
                 
                 <div class="col-md-6">   

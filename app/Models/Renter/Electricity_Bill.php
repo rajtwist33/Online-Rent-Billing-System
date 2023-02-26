@@ -13,6 +13,7 @@ class Electricity_Bill extends Model
         'user_id',
         'room_id',
         'opening_unit',
+        'set_unit_price',
         'slug',
     ];
 

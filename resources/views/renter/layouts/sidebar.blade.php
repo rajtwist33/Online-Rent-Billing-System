@@ -49,7 +49,7 @@
             </a>
           </li>  
           <li class="nav-item ">
-            <a href="{{route('renter.tenant.index')}}" class=" nav-link {{ request()->routeIs('renter.tenant.index') || request()->routeIs('renter.payment.create') || request()->routeIs('renter.tenant.show') || request()->routeIs('renter.tenant.edit') ? 'active' : '' }}">
+            <a href="{{route('renter.tenant.index')}}" class=" nav-link {{ request()->routeIs('renter.tenant.index') || request()->routeIs('renter.payment.create') || request()->routeIs('renter.tenant.show') || request()->routeIs('renter.tenant.edit') || request()->routeIs('renter.electricitybill_payment.create') ? 'active' : '' }}">
               <i class="nav-icon fas fa-shapes"></i>
               <p>
                  Tenant
@@ -60,7 +60,15 @@
             <a href="{{route('renter.payment.index')}}" class=" nav-link {{ request()->routeIs('renter.payment.index')  || request()->routeIs('renter.payment.edit') || request()->routeIs('renter.payment.show') ? 'active' : '' }}">
               <i class="nav-icon fas fa-shapes"></i>
               <p>
-                 Tenant Payments
+                 Rent Payments
+              </p>
+            </a>
+          </li>  
+          <li class="nav-item ">
+            <a href="{{route('renter.electricitybill_payment.index')}}" class=" nav-link {{ request()->routeIs('renter.electricitybill_payment.index') || request()->routeIs('renter.electricitybill_payment.create') || request()->routeIs('renter.electricitybill_payment.edit') || request()->routeIs('renter.electricitybill_payment.show') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-shapes"></i>
+              <p>
+                 Electricity Bill Payments
               </p>
             </a>
           </li>  

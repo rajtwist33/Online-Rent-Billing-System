@@ -4,58 +4,53 @@
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('layouts/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-  <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
-  @endsection
+@endsection
 @section('main-body')
 @include('renter.layouts.success')
 @include('renter.layouts.delete')
 <div class="card">
       @include('renter.layouts.error')
     <div class="card-body">
-        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Add Openening Electricity Unit
-        </button>
     <table id="table1" class="table table-bordered table-striped">
             <thead>
                 <tr>
                 <th>#</th>
-                <th>Room Name</th>
                 <th>Opening Unit</th>
-                <th> Unit Price</th>
-                <th>Created Date</th>
-                <th>Action</th>
+                <th>Closing Unit </th>
+                <th>Acquired Unit</th>
+                <th>Amount to be Paid</th>
+                <th>Paid Amount </th>
+                <th>Dues Amount</th>
+                <th>Adavance Amount</th>
+                <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-               @foreach ($electricity as $electricity)
+               @foreach ($bill_history as $data)
                <tr>
                  <td>{{$loop->iteration}}</td>
-                 <td> {!! Str::ucfirst($electricity->room->name) !!}</td>
-                 <td>{{$electricity->opening_unit}} <span class="text-info">Units</span></td>
-                 <td class="text-bold"> Rs.{{ $electricity->set_unit_price }} </td>
-                 <td class="text-success">{{ $electricity->created_at->format('Y-M-d') }} </td>
-                 <td col-2>
-                  <div class="row ">
-                  <div class="col-md-3">
-                      <a href="{{route('renter.electricitybill.edit',$electricity->slug)}}" class=" nav-link" data-toggle="tooltip" title='Edit Electricity Unit'><i class="fa fa-edit text-primary"></i></a>
-                  </div>
-                  <div class="col-md-2 ">
-                      <form action="{{route('renter.electricitybill.destroy',$electricity->slug)}}" method="post">
-                         @method('delete')
-                          @csrf
-                          
-                          <button type="submit" class=" btn show_confirm" data-toggle="tooltip" title='Delete'><i class="fa fa-trash text-danger"></i></button>
-                    </form>
-                  </div>      
-                  </div>  
-                  </td>
+                <td>{{ $data->opening_unit }}</td>
+                <td>{{ $data->closing_unit }}</td>
+                <td>{{ $data->total_unit }}</td>
+                <td>{{ $data->amount_tobe_paid }}</td>
+                <td>{{ $data->paid_amount }}</td>
+                <td>{{ $data->dues_amount == null ? '___' :  $data->dues_amount }}</td>
+                <td>{{ $data->advance_amount == null ? '___' :  $data->advance_amount}}</td>
+                 <td>
+                    @if( $data->amount_tobe_paid > $data->paid_amount )
+                    <a href="{{ route('renter.electricitybill_payment.edit',$data->id) }}" class="btn btn-warning ">Clear Dues</a> 
+                    @elseif($data->amount_tobe_paid == $data->paid_amount )
+                       <span class=" btn btn-info"> Paid </span>
+                  @endif
+
+                 </td>
                 </tr>
                  @endforeach
             </tbody>
         </table>
     </div>
 </div>
-@include('renter.pages.electricity.create')
+@include('renter.pages.room.create_renter_modal')
 @endsection
 
 @section('script')
@@ -97,7 +92,6 @@
   
 </script>
 <script>
-    CKEDITOR.replace( 'editor1' );
   $(function () {
     $("#table1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

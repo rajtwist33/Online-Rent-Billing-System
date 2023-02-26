@@ -13,14 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('electricity_bills', function (Blueprint $table) {
+        Schema::create('electricitybillpayment', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('room_id')->unsigned()->index();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+            $table->bigInteger('tenant_id')->unsigned()->index();
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
             $table->string('opening_unit')->nullable();
-            $table->string('set_unit_price')->nullable();
+            $table->string('closing_unit')->nullable();
+            $table->string('total_unit')->nullable();
+            $table->string('amount_tobe_paid')->nullable();
+            $table->string('paid_amount')->nullable();
+            $table->string('dues_amount')->nullable();
+            $table->string('advance_amount')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
         });
@@ -33,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('electricity_bills');
+        Schema::dropIfExists('electricitybillpayment');
     }
 };
